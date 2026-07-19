@@ -1,10 +1,36 @@
 (function () {
   const STORAGE_KEY = "luanova-lang";
 
+  /** Browser locales starting with pt (BR, PT, AO, MZ, CV, etc.). */
+  function isLusophoneLocale(locale) {
+    if (!locale) return false;
+    const normalized = String(locale).trim().toLowerCase().replace(/_/g, "-");
+    return normalized === "pt" || normalized.startsWith("pt-");
+  }
+
+  function detectDefaultLang() {
+    const candidates = [];
+    if (Array.isArray(navigator.languages)) {
+      candidates.push(...navigator.languages);
+    }
+    if (navigator.language) candidates.push(navigator.language);
+    try {
+      const intlLocale = Intl.DateTimeFormat().resolvedOptions().locale;
+      if (intlLocale) candidates.push(intlLocale);
+    } catch (_) {
+      /* ignore */
+    }
+
+    for (const locale of candidates) {
+      if (isLusophoneLocale(locale)) return "pt";
+    }
+    return "en";
+  }
+
   function getLang() {
     const stored = localStorage.getItem(STORAGE_KEY);
     if (stored === "pt" || stored === "en") return stored;
-    return "pt";
+    return detectDefaultLang();
   }
 
   function setLang(lang) {
@@ -69,6 +95,7 @@
     t,
     applyStaticI18n,
     bindLangToggle,
+    detectDefaultLang,
     init() {
       const lang = getLang();
       setLang(lang);
