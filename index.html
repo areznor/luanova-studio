@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Lua Nova Editora</title>
+    <meta name="description" content="Lua Nova — selo editorial independente. LitFan, infantil, interativo, romance e não ficção." />
+    <link rel="icon" href="assets/brand/logo-minimalista-lua-nova.png" type="image/png" />
+    <link rel="apple-touch-icon" href="assets/brand/logo-minimalista-lua-nova.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-page="home">
+    <a class="skip-link" href="#conteudo">Skip / Pular</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Lua Nova">
+          <img class="brand-logo" src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="42" height="42" />
+          <span class="brand-name">Lua Nova</span>
+        </a>
+        <div class="header-actions">
+          <nav class="nav" aria-label="Principal">
+            <a href="index.html" aria-current="page" data-i18n="ui.navHome">Início</a>
+            <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
+            <a href="catalogo.html" data-i18n="ui.navCatalog">Catálogo</a>
+          </nav>
+          <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+            <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo">
+      <section class="hero wrap" aria-label="Lua Nova">
+        <div class="hero-stars" aria-hidden="true"></div>
+        <div class="hero-inner">
+          <div class="hero-emblem">
+            <img
+              src="assets/brand/logo-artistico-lua-nova.png"
+              alt="Lua Nova — mulher no crescente alcançando a estrela"
+              width="840"
+              height="840"
+            />
+          </div>
+          <p class="hero-lead" data-i18n="ui.heroLead">
+            Selo editorial independente para livros que ousam novos formatos, mundos e leitores.
+          </p>
+          <div class="hero-cta">
+            <a class="btn btn-primary" href="catalogo.html" data-i18n="ui.ctaCatalog">Ver catálogo</a>
+            <a class="btn btn-ghost" href="sobre.html" data-i18n="ui.ctaAbout">Conhecer o selo</a>
+          </div>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="seals-title">
+        <div class="section-head">
+          <h2 id="seals-title" data-i18n="ui.sealsTitle">Nossos selos</h2>
+          <p data-i18n="ui.sealsHomeLead">
+            Escolha uma linha editorial para explorar o catálogo.
+          </p>
+        </div>
+        <div class="seals-grid" data-seals-home></div>
+      </section>
+
+      <section class="section wrap" id="destaques" aria-labelledby="published-title">
+        <div class="section-head">
+          <h2 id="published-title" data-i18n="ui.publishedTitle">Livros lançados</h2>
+          <p data-i18n="ui.publishedLead">O que já saiu da órbita e chegou às suas mãos.</p>
+          <p class="hint" data-i18n="ui.hoverHint">Passe o mouse para pausar · clique para abrir</p>
+        </div>
+        <div class="carousel" data-carousel data-carousel-published>
+          <div class="carousel-track"></div>
+        </div>
+      </section>
+
+      <section class="section wrap" aria-labelledby="upcoming-title">
+        <div class="section-head">
+          <h2 id="upcoming-title" data-i18n="ui.upcomingTitle">Próximos lançamentos</h2>
+          <p data-i18n="ui.upcomingLead">O que ainda brilha no horizonte editorial.</p>
+        </div>
+        <div class="carousel" data-carousel data-carousel-upcoming>
+          <div class="carousel-track"></div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <img src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="36" height="36" />
+          <p class="footer-copy" data-i18n="ui.footerRights">Lua Nova Editora - {year} - Todos os direitos reservados</p>
+        </div>
+        <div class="footer-links">
+          <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
+          <a href="autor.html?id=amanda-reznor">Amanda Reznor</a>
+          <a href="https://www.amazon.com.br/s?k=Amanda+Reznor" target="_blank" rel="noopener noreferrer">Amazon / KDP</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>

@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR" data-lang="pt">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Catálogo · Lua Nova</title>
+    <meta name="description" content="Catálogo Lua Nova — títulos por linha editorial." />
+    <link rel="icon" href="assets/brand/logo-minimalista-lua-nova.png" type="image/png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;0,700;1,500&family=Figtree:wght@400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="css/styles.css" />
+  </head>
+  <body data-page="catalog">
+    <a class="skip-link" href="#conteudo">Skip / Pular</a>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Lua Nova">
+          <img class="brand-logo" src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="42" height="42" />
+          <span class="brand-name">Lua Nova</span>
+        </a>
+        <div class="header-actions">
+          <nav class="nav" aria-label="Principal">
+            <a href="index.html" data-i18n="ui.navHome">Início</a>
+            <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
+            <a href="catalogo.html" aria-current="page" data-i18n="ui.navCatalog">Catálogo</a>
+          </nav>
+          <div class="lang-toggle" role="group" aria-label="Idioma / Language">
+            <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+            <button type="button" data-lang="en" aria-pressed="false">EN</button>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <main id="conteudo" class="wrap page-hero">
+      <div id="topo-catalogo"></div>
+      <a class="crumb" href="index.html" data-i18n="ui.backHome">← Voltar ao início</a>
+      <h1 class="book-title" data-i18n="ui.catalogTitle">Catálogo</h1>
+      <p class="book-subtitle" data-i18n="ui.catalogLead">
+        Todos os títulos Lua Nova, organizados por selo — lançados primeiro, depois os que vêm a caminho.
+      </p>
+
+      <section class="section" aria-labelledby="seals-title" style="padding-top: 1.5rem">
+        <div class="section-head">
+          <h2 id="seals-title" data-i18n="ui.sealsTitle">Nossos selos</h2>
+          <p data-i18n="ui.sealsLead">
+            Seis linhas editoriais, uma mesma constelação. Cada capa carrega a cor do seu selo.
+          </p>
+        </div>
+        <div class="seals-grid" data-seals></div>
+      </section>
+
+      <div data-catalog></div>
+    </main>
+
+    <footer class="site-footer">
+      <div class="wrap footer-inner">
+        <div class="footer-brand">
+          <img src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="36" height="36" />
+          <p class="footer-copy" data-i18n="ui.footerRights">Lua Nova Editora - {year} - Todos os direitos reservados</p>
+        </div>
+        <div class="footer-links">
+          <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
+          <a href="autor.html?id=amanda-reznor">Amanda Reznor</a>
+          <a href="https://www.amazon.com.br/s?k=Amanda+Reznor" target="_blank" rel="noopener noreferrer">Amazon / KDP</a>
+        </div>
+      </div>
+    </footer>
+
+    <script src="js/data.js"></script>
+    <script src="js/i18n.js"></script>
+    <script src="js/carousel.js"></script>
+    <script src="js/app.js"></script>
+  </body>
+</html>
