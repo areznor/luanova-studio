@@ -301,7 +301,7 @@
 
     const socialBtns = socialRow(social, lang);
 
-    document.title = `${t(book.title, lang)} · Lua Nova`;
+    document.title = `${t(book.title, lang)} · Lua Nova Studio`;
 
     mount.innerHTML = `
       <a class="crumb" href="catalogo.html">← ${escapeHtml(t(ui.navCatalog, lang))}</a>
@@ -352,7 +352,7 @@
         ${socialRow(links, lang, ["instagram", "facebook", "youtube", "linkedin"])}
       </div>`;
 
-    document.title = `${author.name} · Lua Nova`;
+    document.title = `${author.name} · Lua Nova Studio`;
 
     mount.innerHTML = `
       <a class="crumb" href="index.html">${escapeHtml(t(ui.backHome, lang))}</a>

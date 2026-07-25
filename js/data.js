@@ -1,6 +1,6 @@
 window.LUA_NOVA = {
   site: {
-    name: "Lua Nova",
+    name: "Lua Nova Studio",
     tagline: {
       pt: "Livros que iluminam novos caminhos",
       en: "Books that light new paths",
@@ -85,8 +85,8 @@ window.LUA_NOVA = {
         linkedin: "https://www.linkedin.com/in/amandareznor/",
       },
       bio: {
-        pt: 'Amanda "Reznor" Britto — professora e Mestra em Literatura — é a idealizadora da editora Lua Nova, responsável pela concepção do selo, pela seleção de catálogo e pelo desenvolvimento de projetos editoriais independentes. Com formação acadêmica sólida e atuação contínua na escrita e na mediação literária, ela conduz a casa com rigor crítico, visão estratégica e compromisso com a qualidade dos textos que publica.\n\nSob o nome Amanda Reznor, assina ficção especulativa, contos sombrios, obras infantis e narrativas experimentais. Autora de Noite à Deriva e de projetos em curso como Delenda & o Vale dos Segredos, Sleeping Dragon e A Morte da Estrela, articula literatura, formatos interativos e internacionalização — construindo um catálogo que privilegia propostas inovadoras, cuidado editorial e respeito ao leitor.',
-      en: "Lua Nova Publishing - {year} - All rights reserved",
+        pt: 'Amanda "Reznor" Britto — professora e Mestra em Literatura — é a idealizadora da Lua Nova Studio e da Editora Lua Nova, responsável pela concepção do selo, pela seleção de catálogo e pelo desenvolvimento de projetos editoriais independentes. Com formação acadêmica sólida e atuação contínua na escrita e na mediação literária, ela conduz a casa com rigor crítico, visão estratégica e compromisso com a qualidade dos textos que publica.\n\nSob o nome Amanda Reznor, assina ficção especulativa, contos sombrios, obras infantis e narrativas experimentais. Autora de Noite à Deriva e de projetos em curso como Delenda & o Vale dos Segredos, Sleeping Dragon e A Morte da Estrela, articula literatura, formatos interativos e internacionalização — construindo um catálogo que privilegia propostas inovadoras, cuidado editorial e respeito ao leitor.',
+      en: "Lua Nova Studio - {year} - All rights reserved",
       },
     },
   },
@@ -291,20 +291,20 @@ window.LUA_NOVA = {
 
   about: {
     mission: {
-      pt: "A Lua Nova é um selo editorial independente criado para publicar livros com propostas inovadoras: ficção especulativa de alta qualidade, narrativas interativas, obras infantis com inventividade, não ficção que converse com o agora e degustações para o leitor experimentar. Publicamos em português e olhamos para o mundo — internacionalização faz parte do horizonte.",
-      en: "Lua Nova is an independent imprint created to publish books with innovative proposals: high-quality speculative fiction, interactive narratives, inventive children's works, nonfiction that speaks to the present, and samplers for readers to taste. We publish in Portuguese and look outward — internationalization is part of the horizon.",
+      pt: "A Lua Nova Studio é uma casa independente que publica livros e jogos. Sob o selo Editora Lua Nova saem obras com propostas inovadoras: ficção especulativa de alta qualidade, narrativas interativas, obras infantis com inventividade, não ficção que converse com o agora e degustações para o leitor experimentar. Publicamos em português e olhamos para o mundo — internacionalização faz parte do horizonte.",
+      en: "Lua Nova Studio is an independent house publishing books and games. Under the Editora Lua Nova imprint we release works with innovative proposals: high-quality speculative fiction, interactive narratives, inventive children's works, nonfiction that speaks to the present, and samplers for readers to taste. We publish in Portuguese and look outward — internationalization is part of the horizon.",
     },
     vision: {
-      pt: "Como a lua que muda de fase sem deixar de ser a mesma, o catálogo Lua Nova atravessa segmentos distintos — LitFan, infantil, interativo, romance, técnico e degustações — unidos pela mesma luz: ousadia formal, cuidado editorial e respeito ao leitor.",
-      en: "Like the moon that changes phase without ceasing to be itself, the Lua Nova catalog crosses distinct segments — SFF, children's, interactive, literary fiction, nonfiction, and samplers — united by the same light: formal daring, editorial care, and respect for the reader.",
+      pt: "Como a lua que muda de fase sem deixar de ser a mesma, o catálogo da Lua Nova Studio atravessa segmentos distintos — LitFan, infantil, interativo, romance, técnico e degustações — unidos pela mesma luz: ousadia formal, cuidado editorial e respeito ao leitor.",
+      en: "Like the moon that changes phase without ceasing to be itself, the Lua Nova Studio catalog crosses distinct segments — SFF, children's, interactive, literary fiction, nonfiction, and samplers — united by the same light: formal daring, editorial care, and respect for the reader.",
     },
     note: {
       pt: "Selo com CNPJ próprio, em fase de consolidação de catálogo e presença digital. Os textos desta página são protótipo editorial e serão refinados conforme cada lançamento.",
       en: "An imprint with its own CNPJ, consolidating catalog and digital presence. Texts on this page are an editorial prototype and will be refined with each release.",
     },
     eventsLead: {
-      pt: "Lançamentos, lives, feiras e encontros com leitores. Em breve, a agenda da Lua Nova aparece aqui.",
-      en: "Releases, lives, book fairs, and reader meetups. Soon, the Lua Nova calendar will appear here.",
+      pt: "Lançamentos, lives, feiras e encontros com leitores. Em breve, a agenda da Lua Nova Studio aparece aqui.",
+      en: "Releases, lives, book fairs, and reader meetups. Soon, the Lua Nova Studio calendar will appear here.",
     },
     eventsEmpty: {
       pt: "Nenhum evento agendado no momento.",
@@ -317,8 +317,8 @@ window.LUA_NOVA = {
     navAbout: { pt: "Sobre", en: "About" },
     navCatalog: { pt: "Catálogo", en: "Catalog" },
     heroLead: {
-      pt: "Selo editorial independente para livros que ousam novos formatos, mundos e leitores.",
-      en: "An independent imprint for books that dare new forms, worlds, and readers.",
+      pt: "Casa independente de livros e jogos que ousam novos formatos, mundos e leitores.",
+      en: "An independent house of books and games that dare new forms, worlds, and readers.",
     },
     ctaCatalog: { pt: "Ver catálogo", en: "Browse catalog" },
     ctaAbout: { pt: "Conhecer o selo", en: "About the imprint" },
@@ -333,8 +333,8 @@ window.LUA_NOVA = {
     },
     catalogTitle: { pt: "Catálogo", en: "Catalog" },
     catalogLead: {
-      pt: "Todos os títulos Lua Nova, organizados por selo — lançados primeiro, depois os que vêm a caminho.",
-      en: "Every Lua Nova title, organized by line — published first, then those on the way.",
+      pt: "Todos os títulos da Editora Lua Nova, organizados por linha — lançados primeiro, depois os que vêm a caminho.",
+      en: "Every Editora Lua Nova title, organized by line — published first, then those on the way.",
     },
     backToTop: { pt: "Voltar ao topo", en: "Back to top" },
     acquire: { pt: "Adquirir", en: "Buy" },
@@ -372,15 +372,15 @@ window.LUA_NOVA = {
     yearLabel: { pt: "Ano", en: "Year" },
     sealsLabel: { pt: "Selo", en: "Line" },
     backHome: { pt: "← Voltar ao início", en: "← Back home" },
-    aboutTitle: { pt: "Sobre a Lua Nova", en: "About Lua Nova" },
+    aboutTitle: { pt: "Sobre a Lua Nova Studio", en: "About Lua Nova Studio" },
     missionTitle: { pt: "Missão", en: "Mission" },
     visionTitle: { pt: "Visão", en: "Vision" },
     contactTitle: { pt: "Contato", en: "Contact" },
     eventsTitle: { pt: "Próximos eventos", en: "Upcoming events" },
     booksByAuthor: { pt: "Obras no catálogo", en: "Works in the catalog" },
     footerRights: {
-      pt: "Lua Nova Editora - {year} - Todos os direitos reservados",
-      en: "Lua Nova Publishing - {year} - All rights reserved",
+      pt: "Lua Nova Studio - {year} - Todos os direitos reservados",
+      en: "Lua Nova Studio - {year} - All rights reserved",
     },
     placeholderCover: { pt: "(capa provisória)", en: "(provisional cover)" },
     emailLabel: { pt: "E-mail", en: "Email" },
