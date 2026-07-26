@@ -398,6 +398,8 @@
       <ul class="contact-list">
         <li><strong>${escapeHtml(t(ui.emailLabel, lang))}</strong> ${escapeHtml(site.email)}</li>
         <li><strong>Instagram</strong> <a href="${escapeAttr(site.instagram)}" rel="noopener noreferrer">${escapeHtml(site.instagram.replace(/^https?:\/\//, ""))}</a></li>
+        ${site.youtube ? `<li><strong>YouTube</strong> <a href="${escapeAttr(site.youtube)}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.youtube.replace(/^https?:\/\//, ""))}</a></li>` : ""}
+        ${site.facebook ? `<li><strong>Facebook</strong> <a href="${escapeAttr(site.facebook)}" target="_blank" rel="noopener noreferrer">${escapeHtml(site.facebook.replace(/^https?:\/\//, ""))}</a></li>` : ""}
         <li><strong>${escapeHtml(t(ui.shopLabel, lang))}</strong> <a href="${escapeAttr(site.amazon)}" target="_blank" rel="noopener noreferrer">Amazon / KDP</a></li>
       </ul>`;
   }

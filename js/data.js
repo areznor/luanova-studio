@@ -5,8 +5,10 @@ window.LUA_NOVA = {
       pt: "Livros que iluminam novos caminhos",
       en: "Books that light new paths",
     },
-    email: "contato@[a definir]",
-    instagram: "https://instagram.com/[a-definir]",
+    email: "hello@luanovastudio.com",
+    instagram: "https://www.instagram.com/luanova_studio/",
+    youtube: "https://www.youtube.com/@luanova_studio",
+    facebook: null,
     amazon: "https://www.amazon.com.br/s?k=Amanda+Reznor",
   },
 
