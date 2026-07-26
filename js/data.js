@@ -8,7 +8,7 @@ window.LUA_NOVA = {
     email: "hello@luanovastudio.com",
     instagram: "https://www.instagram.com/luanova_studio/",
     youtube: "https://www.youtube.com/@luanova_studio",
-    facebook: null,
+    facebook: "https://www.facebook.com/profile.php?id=61592613926631",
     amazon: "https://www.amazon.com.br/s?k=Amanda+Reznor",
   },
 
