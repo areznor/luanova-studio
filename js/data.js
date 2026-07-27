@@ -301,8 +301,8 @@ window.LUA_NOVA = {
       en: "Like the moon that changes phase without ceasing to be itself, the Lua Nova Studio catalog crosses distinct segments — SFF, children's, interactive, literary fiction, nonfiction, and samplers — united by the same light: formal daring, editorial care, and respect for the reader.",
     },
     note: {
-      pt: "Selo com CNPJ próprio, em fase de consolidação de catálogo e presença digital. Os textos desta página são protótipo editorial e serão refinados conforme cada lançamento.",
-      en: "An imprint with its own CNPJ, consolidating catalog and digital presence. Texts on this page are an editorial prototype and will be refined with each release.",
+      pt: "A Lua Nova Studio tem sede em São Paulo, Brasil, e atua internacionalmente. CNPJ 34.777.422/0001-90.",
+      en: "Lua Nova Studio is based in São Paulo, Brazil, and operates internationally. Company registration (CNPJ) 34.777.422/0001-90.",
     },
     eventsLead: {
       pt: "Lançamentos, lives, feiras e encontros com leitores. Em breve, a agenda da Lua Nova Studio aparece aqui.",
@@ -355,8 +355,8 @@ window.LUA_NOVA = {
     },
     upcomingTitle: { pt: "Próximos lançamentos", en: "Upcoming releases" },
     upcomingLead: {
-      pt: "O que ainda brilha no horizonte editorial.",
-      en: "What still glows on the editorial horizon.",
+      pt: "O que anda brilhando em nosso horizonte editorial:",
+      en: "What has been glowing on our editorial horizon:",
     },
     hoverHint: {
       pt: "Passe o mouse para pausar · clique para abrir",
