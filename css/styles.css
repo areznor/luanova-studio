@@ -805,7 +805,14 @@ a.seal-card:hover {
 
   .author-layout {
     grid-template-columns: 240px 1fr;
-    align-items: center;
+    align-items: start;
+  }
+
+  /* A foto começa na altura do primeiro parágrafo, não do título: desce
+     uma linha do h1 (mesma clamp de .author-name, entrelinha 1.65) mais o
+     espaço abaixo dele. */
+  .author-layout .author-photo-wrap {
+    margin-top: calc(clamp(1.8rem, 4vw, 2.5rem) * 1.65 + 1rem);
   }
 }
 
