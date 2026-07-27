@@ -2,8 +2,8 @@ window.LUA_NOVA = {
   site: {
     name: "Lua Nova Studio",
     tagline: {
-      pt: "Livros que iluminam novos caminhos",
-      en: "Books that light new paths",
+      pt: "Projetos que iluminam novos caminhos",
+      en: "Projects that light new paths",
     },
     email: "hello@luanovastudio.com",
     instagram: "https://www.instagram.com/luanova_studio/",
@@ -29,6 +29,15 @@ window.LUA_NOVA = {
       blurb: {
         pt: "Livros-jogo, puzzles e narrativas em que o leitor também decide.",
         en: "Gamebooks, puzzles, and narratives where the reader also chooses.",
+      },
+    },
+    {
+      id: "jogos",
+      color: "#ff7043",
+      name: { pt: "Jogos", en: "Games" },
+      blurb: {
+        pt: "Jogos digitais e de mesa com o mesmo cuidado narrativo dos livros — feitos para jogar, não para ler.",
+        en: "Digital and tabletop games made with the same narrative care as the books — to be played, not read.",
       },
     },
     {
@@ -326,17 +335,17 @@ window.LUA_NOVA = {
     ctaAbout: { pt: "Conhecer o selo", en: "About the imprint" },
     sealsTitle: { pt: "Nossos selos", en: "Our lines" },
     sealsLead: {
-      pt: "Seis linhas editoriais, uma mesma constelação. Cada capa carrega a cor do seu selo.",
-      en: "Six editorial lines, one constellation. Each cover carries its line’s color.",
+      pt: "Sete linhas, uma mesma constelação. Cada obra carrega a cor do seu selo.",
+      en: "Seven lines, one constellation. Each work carries its line’s color.",
     },
     sealsHomeLead: {
-      pt: "Escolha uma linha editorial para explorar o catálogo.",
-      en: "Choose an editorial line to explore the catalog.",
+      pt: "Escolha uma linha para explorar o catálogo.",
+      en: "Choose a line to explore the catalog.",
     },
     catalogTitle: { pt: "Catálogo", en: "Catalog" },
     catalogLead: {
-      pt: "Todos os títulos da Editora Lua Nova, organizados por linha — lançados primeiro, depois os que vêm a caminho.",
-      en: "Every Editora Lua Nova title, organized by line — published first, then those on the way.",
+      pt: "Tudo que a Lua Nova Studio publica, organizado por linha — lançados primeiro, depois os que vêm a caminho.",
+      en: "Everything Lua Nova Studio publishes, organized by line — released first, then those on the way.",
     },
     backToTop: { pt: "Voltar ao topo", en: "Back to top" },
     acquire: { pt: "Adquirir", en: "Buy" },
