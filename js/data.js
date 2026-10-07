@@ -36,8 +36,8 @@ window.LUA_NOVA = {
       color: "#ff7043",
       name: { pt: "Jogos", en: "Games" },
       blurb: {
-        pt: "Jogos digitais e de mesa com o mesmo cuidado narrativo dos livros — feitos para jogar, não para ler.",
-        en: "Digital and tabletop games made with the same narrative care as the books — to be played, not read.",
+        pt: "Jogos digitais e de mesa com o mesmo cuidado narrativo dos livros — feitos para jogar e ler.",
+        en: "Digital and tabletop games made with the same narrative care as the books — to be played and read.",
       },
     },
     {
@@ -103,6 +103,31 @@ window.LUA_NOVA = {
   },
 
   books: [
+    {
+      id: "azeviche-the-cemetery",
+      type: "game",
+      status: "published",
+      seals: ["jogos"],
+      year: 2026,
+      cover: "assets/games/azeviche-the-cemetery.png",
+      provisional: false,
+      playUrl: "https://luanovastudio.itch.io/azeviche-the-cemetery",
+      authorIds: [],
+      creator: "Lua Nova Studio",
+      title: { pt: "Azeviche: O Cemitério", en: "Azeviche: The Cemetery" },
+      subtitle: {
+        pt: "Um gatinho perdido, uma carta e 20 caminhos para casa",
+        en: "A lost little cat, a letter, and 20 paths home",
+      },
+      synopsis: {
+        pt: "Azeviche se perdeu da família durante uma mudança. Quando uma carta com o novo endereço vai parar em um cemitério ao luar, o curioso gatinho preto a segue em uma aventura acolhedora de Halloween. Deslize lápides, caixas, abóboras e fantasmas amigáveis para abrir caminho até a saída, em 20 puzzles com dificuldade crescente, cenários ilustrados e pequenos capítulos de história.",
+        en: "Separated from his family during a move, Azeviche follows a letter with their new address into a moonlit cemetery. Help this curious black cat find his way through a cozy Halloween adventure: slide gravestones, crates, pumpkins, and friendly ghosts to reach the exit across 20 puzzles, with growing challenges, illustrated scenes, and short story chapters.",
+      },
+      details: {
+        pt: "Edição gratuita de 20 fases, disponível no navegador pelo Itch.io. Jogue com mouse, teclado ou toque; use dicas, desfaça movimentos e busque três estrelas. O progresso é salvo no navegador. Textos em português brasileiro, inglês, espanhol, italiano, francês e alemão; narração em inglês. Inclui ajustes de áudio e movimento reduzido.",
+        en: "The free 20-level edition is playable in your browser on Itch.io. Use mouse, keyboard, or touch controls, ask for hints, undo moves, and aim for three stars. Progress is saved in your browser. Text is available in Brazilian Portuguese, English, Spanish, Italian, French, and German; narration is in English. Audio and reduced-motion settings are included.",
+      },
+    },
     {
       id: "noite-a-deriva",
       status: "published",
@@ -349,6 +374,8 @@ window.LUA_NOVA = {
     },
     backToTop: { pt: "Voltar ao topo", en: "Back to top" },
     acquire: { pt: "Adquirir", en: "Buy" },
+    playOnItch: { pt: "Jogar no Itch.io", en: "Play on Itch.io" },
+    creatorLabel: { pt: "Criação", en: "Created by" },
     interact: { pt: "Interagir", en: "Interact" },
     siteBtn: { pt: "SITE", en: "SITE" },
     socialInstagram: { pt: "Instagram", en: "Instagram" },
@@ -357,7 +384,7 @@ window.LUA_NOVA = {
     socialLinkedin: { pt: "LinkedIn", en: "LinkedIn" },
     downloadSample: { pt: "Baixar degustação", en: "Download sample" },
     linkSoon: { pt: "Em breve", en: "Coming soon" },
-    publishedTitle: { pt: "Livros lançados", en: "Published books" },
+    publishedTitle: { pt: "Lançamentos", en: "Releases" },
     publishedLead: {
       pt: "O que já saiu da órbita e chegou às suas mãos.",
       en: "What has already left orbit and reached your hands.",

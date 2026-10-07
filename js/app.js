@@ -10,6 +10,7 @@
   }
 
   function authorNames(book) {
+    if (book.creator) return book.creator;
     return book.authorIds
       .map((id) => window.LUA_NOVA.authors[id]?.name)
       .filter(Boolean)
@@ -28,15 +29,17 @@
     const color = seal.color;
     const title = t(book.title, lang);
     const provisionalLabel = t(window.LUA_NOVA.ui.placeholderCover, lang);
-    const w = large ? 220 : 160;
-    const h = large ? 330 : 240;
+    const isGame = book.type === "game";
+    const coverClass = isGame ? "cover-face cover-face--game" : "cover-face";
+    const w = isGame ? (large ? 320 : 240) : (large ? 220 : 160);
+    const h = isGame ? (large ? 254 : 190) : (large ? 330 : 240);
 
     if (book.cover) {
       const provisional = book.provisional
         ? `<span class="cover-provisional">${escapeHtml(provisionalLabel)}</span>`
         : "";
       return `
-        <div class="cover-face" style="--seal-color:${color}">
+        <div class="${coverClass}" style="--seal-color:${color}">
           <span class="cover-badge" aria-hidden="true"></span>
           <img src="${book.cover}" alt="${escapeAttr(title)}" width="${w}" height="${h}" loading="lazy" />
           ${provisional}
@@ -56,7 +59,7 @@
     const title = t(book.title, lang);
     const author = authorNames(book);
     return `
-      <a class="cover-card" href="livro.html?id=${encodeURIComponent(book.id)}" title="${escapeAttr(title)}">
+      <a class="cover-card${book.type === "game" ? " cover-card--game" : ""}" href="livro.html?id=${encodeURIComponent(book.id)}" title="${escapeAttr(title)}">
         ${coverFaceHTML(book, lang)}
         <div class="cover-meta">
           <p class="title">${escapeHtml(title)}</p>
@@ -271,7 +274,8 @@
     }
 
     const ui = window.LUA_NOVA.ui;
-    const authors = book.authorIds
+    const isGame = book.type === "game";
+    const authors = book.creator ? escapeHtml(book.creator) : book.authorIds
       .map((aid) => {
         const a = window.LUA_NOVA.authors[aid];
         if (!a) return "";
@@ -289,7 +293,9 @@
     const social = book.social || {};
     const isTasting = book.seals.includes("degustacoes");
 
-    const actionBtns = [
+    const actionBtns = isGame ? [
+      actionButton(t(ui.playOnItch, lang), book.playUrl, lang, true),
+    ] : [
       actionButton(t(ui.acquire, lang), buyUrl, lang, true),
       actionButton(t(ui.interact, lang), interactUrl, lang),
       actionButton(t(ui.siteBtn, lang), siteUrl, lang),
@@ -299,19 +305,21 @@
       actionBtns.push(actionButton(t(ui.downloadSample, lang), downloadUrl, lang));
     }
 
-    const socialBtns = socialRow(social, lang);
+    const socialBtns = isGame && !Object.values(social).some(Boolean) ? "" : socialRow(social, lang);
 
     document.title = `${t(book.title, lang)} · Lua Nova Studio`;
+    mount.classList.toggle("game-page", isGame);
+    document.querySelector('meta[name="description"]')?.setAttribute("content", t(book.synopsis, lang));
 
     mount.innerHTML = `
       <a class="crumb" href="catalogo.html">← ${escapeHtml(t(ui.navCatalog, lang))}</a>
-      <div class="book-layout">
-        <div class="book-cover-lg">${coverFaceHTML(book, lang, true)}</div>
+      <div class="book-layout${isGame ? " book-layout--game" : ""}">
+        <div class="book-cover-lg${isGame ? " book-cover-lg--game" : ""}">${coverFaceHTML(book, lang, true)}</div>
         <div>
           <h1 class="book-title">${escapeHtml(t(book.title, lang))}</h1>
           <p class="book-subtitle">${escapeHtml(t(book.subtitle, lang))}</p>
           <div class="meta-row">
-            <div class="meta-pair"><dt>${escapeHtml(t(ui.authorLabel, lang))}:</dt><dd>${authors}</dd></div>
+            <div class="meta-pair"><dt>${escapeHtml(t(isGame ? ui.creatorLabel : ui.authorLabel, lang))}:</dt><dd>${authors}</dd></div>
             <div class="meta-pair"><dt>${escapeHtml(t(ui.sealsLabel, lang))}:</dt><dd>${sealChipsHTML(book, lang)}</dd></div>
             <div class="meta-pair"><dt>Status:</dt><dd>${escapeHtml(statusLabel)}${book.year ? ` · ${book.year}` : ""}</dd></div>
           </div>

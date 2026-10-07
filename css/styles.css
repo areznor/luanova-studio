@@ -715,6 +715,26 @@ a.seal-card:hover {
   object-fit: cover;
 }
 
+/* Keep game artwork in its original landscape format. */
+.cover-card--game {
+  width: 240px;
+  flex-basis: 240px;
+}
+
+.cover-face--game {
+  width: 240px;
+  height: auto;
+  aspect-ratio: 63 / 50;
+}
+
+.cover-face--game img {
+  object-fit: contain;
+}
+
+.catalog-grid .cover-face--game {
+  aspect-ratio: 63 / 50;
+}
+
 .cover-placeholder {
   width: 100%;
   height: 100%;
@@ -778,6 +798,10 @@ a.seal-card:hover {
   padding: 2.75rem 0 1rem;
 }
 
+.game-page {
+  padding-inline: 1.25rem;
+}
+
 .crumb {
   display: inline-block;
   margin-bottom: 1.25rem;
@@ -834,6 +858,22 @@ a.seal-card:hover {
 
 .book-cover-lg .cover-placeholder {
   min-height: 100%;
+}
+
+.book-cover-lg--game {
+  width: 320px;
+  aspect-ratio: 63 / 50;
+}
+
+.book-cover-lg--game .cover-face {
+  width: 100%;
+  height: 100%;
+}
+
+@media (min-width: 760px) {
+  .book-layout--game {
+    grid-template-columns: 320px minmax(0, 1fr);
+  }
 }
 
 .book-title {
