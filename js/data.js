@@ -97,7 +97,7 @@ window.LUA_NOVA = {
       },
       bio: {
         pt: 'Amanda "Reznor" Britto — professora e Mestra em Literatura — é a idealizadora da Lua Nova Studio e da Editora Lua Nova, responsável pela concepção do selo, pela seleção de catálogo e pelo desenvolvimento de projetos editoriais independentes. Com formação acadêmica sólida e atuação contínua na escrita e na mediação literária, ela conduz a casa com rigor crítico, visão estratégica e compromisso com a qualidade dos textos que publica.\n\nSob o nome Amanda Reznor, assina ficção especulativa, contos sombrios, obras infantis e narrativas experimentais. Autora de Noite à Deriva e de projetos em curso como Delenda & o Vale dos Segredos, Sleeping Dragon e A Morte da Estrela, articula literatura, formatos interativos e internacionalização — construindo um catálogo que privilegia propostas inovadoras, cuidado editorial e respeito ao leitor.',
-      en: "Lua Nova Studio - {year} - All rights reserved",
+        en: 'Amanda "Reznor" Britto — a teacher with a Master\'s degree in Literature — is the founder of Lua Nova Studio and Editora Lua Nova, responsible for conceiving the imprint, curating the catalog, and developing independent publishing projects. With a solid academic background and ongoing work in writing and literary mediation, she leads the house with critical rigor, strategic vision, and a commitment to the quality of the texts it publishes.\n\nAs Amanda Reznor, she writes speculative fiction, dark short stories, children\'s books, and experimental narratives. Author of Night Adrift and of works in progress such as Delenda & the Valley of Secrets, Sleeping Dragon, and The Death of the Star, she brings together literature, interactive formats, and internationalization — building a catalog that favors innovative proposals, editorial care, and respect for the reader.',
       },
     },
   },
@@ -352,6 +352,20 @@ window.LUA_NOVA = {
     navHome: { pt: "Início", en: "Home" },
     navAbout: { pt: "Sobre", en: "About" },
     navCatalog: { pt: "Catálogo", en: "Catalog" },
+    navGames: { pt: "Jogos", en: "Games" },
+    topbarTag: { pt: "Novo", en: "New" },
+    topbarNote: {
+      pt: "Azeviche: O Cemitério — jogue grátis no navegador",
+      en: "Azeviche: The Cemetery — play free in your browser",
+    },
+    heroEyebrow: { pt: "Livros e jogos interativos", en: "Books and interactive games" },
+    manifestoEyebrow: { pt: "De São Paulo para o mundo", en: "From São Paulo to the world" },
+    manifestoQuote: {
+      pt: "Como a lua que muda de fase sem deixar de ser a mesma, nosso catálogo atravessa mundos distintos, unidos pela mesma luz.",
+      en: "Like the moon that changes phase without ceasing to be itself, our catalog crosses distinct worlds, united by the same light.",
+    },
+    footerExplore: { pt: "Navegue", en: "Explore" },
+    footerLines: { pt: "Selos", en: "Lines" },
     heroLead: {
       pt: "Casa independente de livros e jogos que ousam novos formatos, mundos e leitores.",
       en: "An independent house of books and games that dare new forms, worlds, and readers.",

@@ -3,6 +3,8 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#060818" />
     <title>Lua Nova Studio</title>
     <meta name="description" content="Lua Nova Studio — casa independente de livros e jogos. Editora Lua Nova: LitFan, infantil, interativo, romance e não ficção." />
     <link rel="icon" href="assets/brand/logo-minimalista-lua-nova.png" type="image/png" />
@@ -15,30 +17,58 @@
   <body data-page="home">
     <a class="skip-link" href="#conteudo">Skip / Pular</a>
 
-    <header class="site-header">
-      <div class="header-inner">
-        <a class="brand" href="index.html" aria-label="Lua Nova Studio">
-          <img class="brand-logo" src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="42" height="42" />
-          <span class="brand-name">Lua Nova Studio</span>
-        </a>
-        <div class="header-actions">
-          <nav class="nav" aria-label="Principal">
-            <a href="index.html" aria-current="page" data-i18n="ui.navHome">Início</a>
-            <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
-            <a href="catalogo.html" data-i18n="ui.navCatalog">Catálogo</a>
-          </nav>
+    <div class="topbar">
+      <div class="topbar-inner">
+        <p class="topbar-note">
+          <span class="topbar-tag" data-i18n="ui.topbarTag">Novo</span>
+          <a href="livro.html?id=azeviche-the-cemetery" data-i18n="ui.topbarNote">Azeviche: O Cemitério — jogue grátis no navegador</a>
+        </p>
+        <div class="topbar-actions">
+          <div class="social-row">
+            <a class="social-icon" href="https://www.instagram.com/luanova_studio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+            <a class="social-icon" href="https://www.youtube.com/@luanova_studio" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></a>
+            <a class="social-icon" href="https://www.facebook.com/profile.php?id=61592613926631" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg></a>
+          </div>
           <div class="lang-toggle" role="group" aria-label="Idioma / Language">
             <button type="button" data-lang="pt" aria-pressed="true">PT</button>
             <button type="button" data-lang="en" aria-pressed="false">EN</button>
           </div>
         </div>
       </div>
+    </div>
+
+    <header class="site-header">
+      <div class="header-inner">
+        <a class="brand" href="index.html" aria-label="Lua Nova Studio">
+          <img class="brand-logo" src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="50" height="50" />
+          <span class="brand-name">Lua Nova Studio</span>
+        </a>
+        <div class="header-actions">
+          <nav class="nav" aria-label="Principal">
+            <a href="index.html" aria-current="page" data-i18n="ui.navHome">Início</a>
+            <a href="catalogo.html" data-i18n="ui.navCatalog">Catálogo</a>
+            <a href="catalogo.html#selo-jogos" data-i18n="ui.navGames">Jogos</a>
+            <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
+          </nav>
+        </div>
+      </div>
     </header>
 
     <main id="conteudo">
-      <section class="hero wrap" aria-label="Lua Nova Studio">
+      <section class="hero theme-light" aria-labelledby="hero-title">
         <div class="hero-stars" aria-hidden="true"></div>
         <div class="hero-inner">
+          <div class="hero-copy">
+            <p class="section-eyebrow" data-i18n="ui.heroEyebrow">Livros e jogos interativos</p>
+            <h1 class="hero-title" id="hero-title" data-i18n="site.tagline">Projetos que iluminam novos caminhos</h1>
+            <p class="hero-lead" data-i18n="ui.heroLead">
+              Casa independente de livros e jogos que ousam novos formatos, mundos e leitores.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-primary" href="catalogo.html" data-i18n="ui.ctaCatalog">Ver catálogo</a>
+              <a class="btn btn-ghost" href="sobre.html" data-i18n="ui.ctaAbout">Conhecer o selo</a>
+            </div>
+          </div>
           <div class="hero-emblem">
             <img
               src="assets/brand/logo-artistico-lua-nova.png"
@@ -46,13 +76,7 @@
               width="840"
               height="840"
             />
-          </div>
-          <p class="hero-lead" data-i18n="ui.heroLead">
-            Casa independente de livros e jogos que ousam novos formatos, mundos e leitores.
-          </p>
-          <div class="hero-cta">
-            <a class="btn btn-primary" href="catalogo.html" data-i18n="ui.ctaCatalog">Ver catálogo</a>
-            <a class="btn btn-ghost" href="sobre.html" data-i18n="ui.ctaAbout">Conhecer o selo</a>
+            <span class="star-glow" aria-hidden="true"></span>
           </div>
         </div>
       </section>
@@ -89,16 +113,62 @@
       </section>
     </main>
 
+    <section class="manifesto theme-light" aria-labelledby="manifesto-title">
+      <div class="hero-stars" aria-hidden="true"></div>
+      <p class="section-eyebrow" id="manifesto-title" data-i18n="ui.manifestoEyebrow">De São Paulo para o mundo</p>
+      <blockquote data-i18n="ui.manifestoQuote">Como a lua que muda de fase sem deixar de ser a mesma, nosso catálogo atravessa mundos distintos, unidos pela mesma luz.</blockquote>
+      <div class="manifesto-orn" aria-hidden="true"></div>
+    </section>
+
     <footer class="site-footer">
-      <div class="wrap footer-inner">
-        <div class="footer-brand">
-          <img src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="36" height="36" />
-          <p class="footer-copy" data-i18n="ui.footerRights">Lua Nova Studio - {year} - Todos os direitos reservados</p>
+      <div class="wrap">
+        <div class="footer-grid">
+          <div class="footer-brand">
+            <a class="brand" href="index.html" aria-label="Lua Nova Studio">
+              <img class="brand-logo" src="assets/brand/logo-minimalista-lua-nova.png" alt="" width="64" height="64" />
+              <span class="brand-name">Lua Nova Studio</span>
+            </a>
+            <p class="footer-tagline" data-i18n="site.tagline">Projetos que iluminam novos caminhos</p>
+            <div class="social-row">
+              <a class="social-icon" href="https://www.instagram.com/luanova_studio/" target="_blank" rel="noopener noreferrer" aria-label="Instagram" title="Instagram"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2m-.2 2A3.6 3.6 0 0 0 4 7.6v8.8C4 18.39 5.61 20 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6C20 5.61 18.39 4 16.4 4H7.6m9.65 1.5a1.25 1.25 0 0 1 1.25 1.25A1.25 1.25 0 0 1 17.25 8 1.25 1.25 0 0 1 16 6.75a1.25 1.25 0 0 1 1.25-1.25M12 7a5 5 0 0 1 5 5 5 5 0 0 1-5 5 5 5 0 0 1-5-5 5 5 0 0 1 5-5m0 2a3 3 0 0 0-3 3 3 3 0 0 0 3 3 3 3 0 0 0 3-3 3 3 0 0 0-3-3z"/></svg></a>
+              <a class="social-icon" href="https://www.youtube.com/@luanova_studio" target="_blank" rel="noopener noreferrer" aria-label="YouTube" title="YouTube"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M10 15l5.19-3L10 9v6m11.56-7.83c.13.47.22 1.1.28 1.9.07.8.1 1.49.1 2.09L22 12c0 2.19-.16 3.8-.44 4.83-.25.9-.83 1.48-1.73 1.73-.47.13-1.33.22-2.65.28-1.3.07-2.49.1-3.59.1L12 19c-4.19 0-6.8-.16-7.83-.44-.9-.25-1.48-.83-1.73-1.73-.13-.47-.22-1.1-.28-1.9-.07-.8-.1-1.49-.1-2.09L2 12c0-2.19.16-3.8.44-4.83.25-.9.83-1.48 1.73-1.73.47-.13 1.33-.22 2.65-.28 1.3-.07 2.49-.1 3.59-.1L12 5c4.19 0 6.8.16 7.83.44.9.25 1.48.83 1.73 1.73z"/></svg></a>
+              <a class="social-icon" href="https://www.facebook.com/profile.php?id=61592613926631" target="_blank" rel="noopener noreferrer" aria-label="Facebook" title="Facebook"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M14 13.5h2.5l1-4H14v-2c0-1.03 0-2 2-2h1.5V2.14c-.326-.043-1.557-.14-2.857-.14C11.928 2 10 3.657 10 6.7v2.8H7v4h3V22h4v-8.5z"/></svg></a>
+            </div>
+          </div>
+          <nav class="footer-col" aria-labelledby="footer-explore">
+            <h2 id="footer-explore" data-i18n="ui.footerExplore">Navegue</h2>
+            <ul>
+              <li><a href="index.html" data-i18n="ui.navHome">Início</a></li>
+              <li><a href="catalogo.html" data-i18n="ui.navCatalog">Catálogo</a></li>
+              <li><a href="catalogo.html#selo-jogos" data-i18n="ui.navGames">Jogos</a></li>
+              <li><a href="sobre.html" data-i18n="ui.navAbout">Sobre</a></li>
+              <li><a href="autor.html?id=amanda-reznor">Amanda Reznor</a></li>
+            </ul>
+          </nav>
+          <nav class="footer-col" aria-labelledby="footer-lines">
+            <h2 id="footer-lines" data-i18n="ui.footerLines">Selos</h2>
+            <ul>
+              <li><a href="catalogo.html#selo-infantil"><span class="footer-dot" style="--seal-color:#f0b429" aria-hidden="true"></span><span data-i18n="seals.0.name">Infantil</span></a></li>
+              <li><a href="catalogo.html#selo-interativo"><span class="footer-dot" style="--seal-color:#5ec8e8" aria-hidden="true"></span><span data-i18n="seals.1.name">Interativo</span></a></li>
+              <li><a href="catalogo.html#selo-jogos"><span class="footer-dot" style="--seal-color:#ff7043" aria-hidden="true"></span><span data-i18n="seals.2.name">Jogos</span></a></li>
+              <li><a href="catalogo.html#selo-litfan"><span class="footer-dot" style="--seal-color:#b57bff" aria-hidden="true"></span><span data-i18n="seals.3.name">LitFan</span></a></li>
+              <li><a href="catalogo.html#selo-romance"><span class="footer-dot" style="--seal-color:#f07a9a" aria-hidden="true"></span><span data-i18n="seals.4.name">Romance</span></a></li>
+              <li><a href="catalogo.html#selo-tecnico"><span class="footer-dot" style="--seal-color:#7ed957" aria-hidden="true"></span><span data-i18n="seals.5.name">Técnico</span></a></li>
+              <li><a href="catalogo.html#selo-degustacoes"><span class="footer-dot" style="--seal-color:#9aa3b2" aria-hidden="true"></span><span data-i18n="seals.6.name">Degustações</span></a></li>
+            </ul>
+          </nav>
+          <div class="footer-col">
+            <h2 data-i18n="ui.contactTitle">Contato</h2>
+            <ul>
+              <li><a href="mailto:hello@luanovastudio.com">hello@luanovastudio.com</a></li>
+              <li><a href="https://www.amazon.com.br/s?k=Amanda+Reznor" target="_blank" rel="noopener noreferrer">Amazon / KDP</a></li>
+              <li><a href="https://luanovastudio.itch.io/" target="_blank" rel="noopener noreferrer">Itch.io</a></li>
+            </ul>
+          </div>
         </div>
-        <div class="footer-links">
-          <a href="sobre.html" data-i18n="ui.navAbout">Sobre</a>
-          <a href="autor.html?id=amanda-reznor">Amanda Reznor</a>
-          <a href="https://www.amazon.com.br/s?k=Amanda+Reznor" target="_blank" rel="noopener noreferrer">Amazon / KDP</a>
+        <div class="footer-bottom">
+          <p class="footer-copy" data-i18n="ui.footerRights">Lua Nova Studio - {year} - Todos os direitos reservados</p>
+          <p class="footer-note" data-i18n="about.note">A Lua Nova Studio tem sede em São Paulo, Brasil, e atua internacionalmente.</p>
         </div>
       </div>
     </footer>

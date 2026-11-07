@@ -13,7 +13,8 @@
   }
 
   function clearClones(track) {
-    track.querySelectorAll('[aria-hidden="true"]').forEach((el) => el.remove());
+    // Only the loop clones (direct children); keep aria-hidden decorations inside cards.
+    track.querySelectorAll(':scope > [aria-hidden="true"]').forEach((el) => el.remove());
   }
 
   function setupCarousel(root) {
