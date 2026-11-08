@@ -412,6 +412,108 @@
       </ul>`;
   }
 
+  /* —— Rotating quotes in the parchment band before the footer ——
+     Book pages show the book's own quotes (book.quotes) under the book's title;
+     every other page, or a book without quotes, shows the studio's lines. */
+  const QUOTE_INTERVAL = 7000;
+  const quoteState = { index: 0, timer: null, paused: false, key: "", bound: false };
+
+  function quoteSet() {
+    const data = window.LUA_NOVA;
+    if (document.body.dataset.page === "book") {
+      const book = data.books.find((b) => b.id === getQueryId());
+      if (book?.quotes?.length) return { key: book.id, eyebrow: book.title, items: book.quotes };
+    }
+    return { key: "studio", eyebrow: data.ui.manifestoEyebrow, items: data.quotes?.studio || [] };
+  }
+
+  function showQuote(band, i) {
+    const slides = band.querySelectorAll(".quote-slide");
+    if (!slides.length) return;
+    quoteState.index = (i + slides.length) % slides.length;
+    slides.forEach((s, n) => {
+      const on = n === quoteState.index;
+      s.classList.toggle("is-active", on);
+      s.setAttribute("aria-hidden", on ? "false" : "true");
+    });
+    band.querySelectorAll(".quote-dots button").forEach((b, n) => {
+      b.setAttribute("aria-current", n === quoteState.index ? "true" : "false");
+    });
+  }
+
+  function startQuoteTimer(band) {
+    clearInterval(quoteState.timer);
+    const reduced = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+    if (reduced || band.querySelectorAll(".quote-slide").length < 2) return;
+    quoteState.timer = setInterval(() => {
+      if (!quoteState.paused && !document.hidden) showQuote(band, quoteState.index + 1);
+    }, QUOTE_INTERVAL);
+  }
+
+  function renderQuotes(lang) {
+    const band = document.querySelector(".manifesto");
+    if (!band) return;
+    const set = quoteSet();
+    if (!set.items.length) return;
+    const ui = window.LUA_NOVA.ui;
+    if (set.key !== quoteState.key) quoteState.index = 0;
+    quoteState.key = set.key;
+
+    const eyebrow = band.querySelector(".section-eyebrow");
+    if (eyebrow) {
+      // The language toggle re-runs the static pass after this; drop the key so
+      // it cannot put the studio line back over a book's title.
+      eyebrow.removeAttribute("data-i18n");
+      eyebrow.textContent = t(set.eyebrow, lang);
+    }
+
+    const slides = set.items
+      .map((q) => {
+        const cite = q.cite ? `<figcaption>— ${escapeHtml(t(q.cite, lang))}</figcaption>` : "";
+        return `<figure class="quote-slide"><blockquote>${escapeHtml(t(q.text, lang))}</blockquote>${cite}</figure>`;
+      })
+      .join("");
+    const dots =
+      set.items.length > 1
+        ? `<div class="quote-dots" role="group" aria-label="${escapeAttr(t(ui.quotesLabel, lang))}">${set.items
+            .map(
+              (_, n) =>
+                `<button type="button" data-quote="${n}" aria-label="${escapeAttr(
+                  t(ui.quoteN, lang).replace("{n}", n + 1).replace("{total}", set.items.length)
+                )}"></button>`
+            )
+            .join("")}</div>`
+        : "";
+
+    let rotator = band.querySelector(".quote-rotator");
+    if (!rotator) {
+      rotator = document.createElement("div");
+      rotator.className = "quote-rotator";
+      band.querySelector("blockquote")?.replaceWith(rotator);
+    }
+    rotator.innerHTML = slides;
+    band.querySelector(".quote-dots")?.remove();
+    rotator.insertAdjacentHTML("afterend", dots);
+
+    if (!quoteState.bound) {
+      quoteState.bound = true;
+      band.addEventListener("click", (e) => {
+        const btn = e.target.closest("[data-quote]");
+        if (!btn) return;
+        showQuote(band, Number(btn.dataset.quote));
+        startQuoteTimer(band);
+      });
+      // Hold the current quote while the reader points at it or tabs into the dots.
+      band.addEventListener("mouseenter", () => (quoteState.paused = true));
+      band.addEventListener("mouseleave", () => (quoteState.paused = false));
+      band.addEventListener("focusin", () => (quoteState.paused = true));
+      band.addEventListener("focusout", () => (quoteState.paused = false));
+    }
+
+    showQuote(band, quoteState.index);
+    startQuoteTimer(band);
+  }
+
   function refreshPage(lang) {
     window.LuaI18n.applyStaticI18n(lang);
     const page = document.body.dataset.page;
@@ -420,6 +522,7 @@
     if (page === "book") renderBookPage(lang);
     if (page === "author") renderAuthorPage(lang);
     if (page === "about") renderAboutExtras(lang);
+    renderQuotes(lang);
   }
 
   window.LuaApp = {

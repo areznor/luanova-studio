@@ -102,6 +102,44 @@ window.LUA_NOVA = {
     },
   },
 
+  /* Rotating quotes in the parchment band before the footer. "studio" shows on
+     the home, catalog, about and author pages, and on any book without its own
+     list. A book's quotes go in book.quotes: { text: {pt, en}, cite?: {pt, en} }. */
+  quotes: {
+    studio: [
+      {
+        text: {
+          pt: "Como a lua que muda de fase sem deixar de ser a mesma, nosso catálogo atravessa mundos distintos, unidos pela mesma luz.",
+          en: "Like the moon that changes phase without ceasing to be itself, our catalog crosses distinct worlds, united by the same light.",
+        },
+      },
+      {
+        text: {
+          pt: "Livros que se leem, jogos que se contam e histórias que pedem a sua participação.",
+          en: "Books you read, games that tell stories, and stories that ask you to take part.",
+        },
+      },
+      {
+        text: {
+          pt: "Toda lua nova é um começo: é no céu escuro que a próxima história acende.",
+          en: "Every new moon is a beginning: the next story lights up in a dark sky.",
+        },
+      },
+      {
+        text: {
+          pt: "Ousadia na forma, cuidado na edição e respeito por quem lê.",
+          en: "Daring in form, care in editing, and respect for the reader.",
+        },
+      },
+      {
+        text: {
+          pt: "Escrevemos em português e olhamos para o mundo.",
+          en: "We write in Portuguese and look out to the world.",
+        },
+      },
+    ],
+  },
+
   books: [
     {
       id: "azeviche-the-cemetery",
@@ -113,6 +151,11 @@ window.LUA_NOVA = {
       provisional: false,
       playUrl: "https://luanovastudio.itch.io/azeviche-the-cemetery",
       authorIds: [],
+      quotes: [
+        { text: { pt: "Uma carta, um cemitério ao luar e um gatinho que só quer voltar para casa.", en: "A letter, a moonlit cemetery, and a little cat who just wants to go home." } },
+        { text: { pt: "Vinte caminhos entre lápides e abóboras. Só um leva para casa.", en: "Twenty paths between gravestones and pumpkins. Only one leads home." } },
+        { text: { pt: "Um Halloween aconchegante para jogar de graça, no navegador.", en: "A cozy Halloween to play for free, right in your browser." } },
+      ],
       creator: "Lua Nova Studio",
       title: { pt: "Azeviche: O Cemitério", en: "Azeviche: The Cemetery" },
       subtitle: {
@@ -141,6 +184,11 @@ window.LUA_NOVA = {
       siteUrl: null,
       social: { instagram: null, facebook: null, youtube: null },
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Agarre-se à cama e acenda as luzes: a noite está prestes a derivar.", en: "Hold on to your bed and turn on the lights: the night is about to drift." } },
+        { text: { pt: "Sete contos sombrios e seis poemas atravessam o Brasil e o mundo.", en: "Seven dark stories and six poems sweep across Brazil and the world." } },
+        { text: { pt: "Das lendas amazônicas ao inferno de Barba Negra, o estranho mora ao lado.", en: "From Amazonian legends to Blackbeard's hell, the strange lives next door." } },
+      ],
       title: { pt: "Noite à Deriva", en: "Night Adrift" },
       subtitle: {
         pt: "Antologia de contos e poemas",
@@ -163,6 +211,10 @@ window.LUA_NOVA = {
       cover: "assets/covers/placeholder-a-morte-da-estrela.png",
       provisional: true,
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Quando uma estrela se apaga, o que resta no céu, e em quem a observava?", en: "When a star dies, what remains in the sky, and in those who watched it?" } },
+        { text: { pt: "Toda luz que vemos já partiu há muito tempo.", en: "Every light we see left its source long ago." } },
+      ],
       title: { pt: "A Morte da Estrela", en: "The Death of the Star" },
       subtitle: {
         pt: "Romance em desenvolvimento",
@@ -185,6 +237,10 @@ window.LUA_NOVA = {
       cover: "assets/covers/placeholder-sleeping-dragon.png",
       provisional: true,
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Alguns dragões dormem. Outros esperam.", en: "Some dragons sleep. Others wait." } },
+        { text: { pt: "Todo despertar cobra o seu preço.", en: "Every awakening has its price." } },
+      ],
       title: { pt: "Sleeping Dragon", en: "Sleeping Dragon" },
       subtitle: {
         pt: "Fantasia de mundo denso",
@@ -212,6 +268,10 @@ window.LUA_NOVA = {
       siteUrl: "https://valedossegredos.blogspot.com/",
       social: { instagram: null, facebook: null, youtube: null },
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Segredos, ruínas e ciclos que se fecham, e se abrem de novo.", en: "Secrets, ruins, and cycles that close, and open again." } },
+        { text: { pt: "Todo vale guarda o que a montanha esqueceu.", en: "Every valley keeps what the mountain forgot." } },
+      ],
       title: {
         pt: "Delenda & o Vale dos Segredos",
         en: "Delenda & the Valley of Secrets",
@@ -238,6 +298,11 @@ window.LUA_NOVA = {
       provisional: true,
       interactUrl: "casa-do-kiddo/",
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Está tudo escuro aqui.", en: "It's all dark in here." }, cite: { pt: "A Casa do Kiddo", en: "Kiddo's House" } },
+        { text: { pt: "Venha ver o que tem atrás da porta.", en: "Come see what's behind the door." } },
+        { text: { pt: "Decifre as pistas do livro e acenda a última vela.", en: "Decode the book's clues and light the last candle." } },
+      ],
       title: {
         pt: "Venha ver atrás da porta",
         en: "Come See Behind the Door",
@@ -264,6 +329,11 @@ window.LUA_NOVA = {
       provisional: true,
       interactUrl: "jacare-guloso/",
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Agora vamos tirar os animais das jaulas!", en: "Now let's get the animals out of the cages!" }, cite: { pt: "Resgate dos Bichos", en: "Resgate dos Bichos" } },
+        { text: { pt: "Querer tudo de uma vez tem consequências deliciosamente cômicas.", en: "Wanting everything at once has deliciously comic consequences." } },
+        { text: { pt: "Dobre o papel, abra a jaula e solte os bichos.", en: "Fold the paper, open the cage, and set the animals free." } },
+      ],
       title: { pt: "O Jacaré Guloso", en: "The Greedy Alligator" },
       subtitle: {
         pt: "Conto ilustrado",
@@ -287,6 +357,12 @@ window.LUA_NOVA = {
       provisional: false,
       siteUrl: "arquivo-de-shera/",
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Em Kerman, nada se destrói; apenas se corrige.", en: "In Kerman, nothing is destroyed; it is only corrected." } },
+        { text: { pt: "As histórias nunca foram minhas. Esta noite, quem vai ler é você.", en: "The stories were never mine. Tonight, you are the one who reads." }, cite: { pt: "Shera", en: "Shera" } },
+        { text: { pt: "Quatro noites, um segredo e um juiz que não se lembra de nada.", en: "Four nights, one secret, and a judge who remembers nothing." } },
+        { text: { pt: "Risque os nomes impossíveis. Salve um condenado por vez.", en: "Cross out the impossible names. Save one condemned soul at a time." } },
+      ],
       title: { pt: "O Arquivo de Shera", en: "Shera's Archive" },
       subtitle: {
         pt: "Quatro Noites e Um Segredo",
@@ -309,6 +385,10 @@ window.LUA_NOVA = {
       cover: "assets/covers/placeholder-mente-milionaria.png",
       provisional: true,
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Técnico o bastante para orientar, acessível o bastante para inspirar.", en: "Technical enough to guide, accessible enough to inspire." } },
+        { text: { pt: "Antes da carteira digital, a mentalidade.", en: "Before the digital wallet comes the mindset." } },
+      ],
       title: {
         pt: "A Mente Milionária na Era das Criptos",
         en: "The Millionaire Mind in the Crypto Era",
@@ -334,6 +414,10 @@ window.LUA_NOVA = {
       cover: "assets/covers/placeholder-crime-e-o-padre.png",
       provisional: true,
       authorIds: ["amanda-reznor"],
+      quotes: [
+        { text: { pt: "Quando o crime bate à porta de quem deveria absolver.", en: "When crime knocks on the door of the one who should absolve." } },
+        { text: { pt: "Entre o pecado e a redenção, a linha se esfumaça.", en: "Between sin and redemption, the line blurs." } },
+      ],
       title: { pt: "O Crime e o Padre", en: "The Crime and the Priest" },
       subtitle: {
         pt: "Conto / novela",
@@ -389,6 +473,8 @@ window.LUA_NOVA = {
       pt: "Como a lua que muda de fase sem deixar de ser a mesma, nosso catálogo atravessa mundos distintos, unidos pela mesma luz.",
       en: "Like the moon that changes phase without ceasing to be itself, our catalog crosses distinct worlds, united by the same light.",
     },
+    quotesLabel: { pt: "Escolher frase", en: "Choose quote" },
+    quoteN: { pt: "Frase {n} de {total}", en: "Quote {n} of {total}" },
     footerExplore: { pt: "Navegue", en: "Explore" },
     footerLines: { pt: "Selos", en: "Lines" },
     heroLead: {

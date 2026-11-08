@@ -739,6 +739,96 @@ main {
   color: var(--text);
 }
 
+/* Rotating quotes: every slide shares one grid cell, so the band keeps the
+   height of the longest quote and never jumps. The outgoing quote fades
+   first; the incoming one waits for it before rising in. */
+.quote-rotator {
+  display: grid;
+  max-width: 46rem;
+  margin: 0.75rem auto 0;
+}
+
+.quote-slide {
+  grid-area: 1 / 1;
+  align-self: center;
+  margin: 0;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity 0.45s var(--ease), transform 0.45s var(--ease), visibility 0s linear 0.45s;
+}
+
+.quote-slide.is-active {
+  opacity: 1;
+  visibility: visible;
+  transform: none;
+  transition: opacity 0.9s var(--ease) 0.45s, transform 0.9s var(--ease) 0.45s, visibility 0s linear 0s;
+}
+
+.manifesto .quote-slide blockquote {
+  max-width: none;
+  margin: 0;
+}
+
+.quote-slide figcaption {
+  margin-top: 0.9rem;
+  font-family: var(--font-ui);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.quote-dots {
+  display: flex;
+  justify-content: center;
+  gap: 0.35rem;
+  margin-top: 1.4rem;
+}
+
+.quote-dots button {
+  position: relative;
+  width: 22px;
+  height: 22px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--gold-deep);
+  cursor: pointer;
+}
+
+.quote-dots button::before {
+  content: "";
+  position: absolute;
+  inset: 7px;
+  border: 1px solid currentColor;
+  border-radius: 50%;
+  transition: background 0.3s var(--ease), transform 0.3s var(--ease);
+}
+
+.quote-dots button:hover::before {
+  transform: scale(1.25);
+}
+
+.quote-dots button[aria-current="true"]::before {
+  background: currentColor;
+}
+
+.quote-dots button:focus-visible {
+  outline: 2px solid var(--gold-deep);
+  outline-offset: 1px;
+  border-radius: 50%;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .quote-slide,
+  .quote-slide.is-active {
+    transform: none;
+    transition: none;
+  }
+}
+
 .manifesto-orn {
   width: 9rem;
   height: 14px;
