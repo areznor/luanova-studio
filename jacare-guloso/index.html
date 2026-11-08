@@ -1,0 +1,660 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Resgate dos Bichos — Do Jacaré Guloso</title>
+<meta name="description" content="Jogo de dobraduras do livro O Jacaré Guloso: solte os bichos das jaulas dobrando origami. Bilíngue português e inglês, para crianças.">
+<meta name="author" content="Amanda Reznor Britto">
+<meta name="theme-color" content="#6E9668">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Resgate dos Bichos — Do Jacaré Guloso">
+<meta property="og:description" content="Solte os bichos das jaulas dobrando origami. Um jogo bilíngue do livro infantil O Jacaré Guloso.">
+<meta property="og:locale" content="pt_BR">
+<meta property="og:locale:alternate" content="en_US">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><text y='.9em' font-size='90'>%F0%9F%90%8A</text></svg>">
+<link href="https://fonts.googleapis.com/css2?family=Baloo+2:wght@600;800&family=Nunito:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --creme:#FFF8EB; --creme2:#FBEED4;
+    --mata:#DDEBD3; --mata2:#A8C6A0; --mata3:#6E9668;
+    --rio:#BFDCE8; --rio2:#8FC0D6;
+    --tinta:#4A4238; --barra:#7A6A55;
+    --festa:#E86F8E; --papel:#F6E7C8; --vinco:#C0392B;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{
+    font-family:'Nunito',sans-serif;color:var(--tinta);
+    background:
+      radial-gradient(ellipse 120% 60% at 50% -10%, #FFEFC9 0%, transparent 60%),
+      linear-gradient(180deg, var(--creme) 0%, var(--mata) 78%, var(--rio) 100%);
+    min-height:100vh;
+  }
+  header{max-width:880px;margin:0 auto;padding:18px 18px 6px;text-align:center}
+  .idiomas{display:inline-flex;background:#fff;border-radius:999px;padding:4px;gap:2px;
+    border:2px solid var(--mata2);margin-bottom:12px;box-shadow:0 3px 0 #E4D5B8}
+  .idiomas button{border:none;background:none;font-family:'Baloo 2',cursive;font-weight:800;
+    font-size:15px;padding:6px 16px;border-radius:999px;cursor:pointer;color:#8A7B63;transition:all .15s}
+  .idiomas button.ativo{background:var(--mata3);color:#fff}
+  .idiomas button:focus-visible{outline:3px solid var(--festa);outline-offset:2px}
+  h1{font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(26px,6vw,42px);color:var(--mata3);line-height:1.05}
+  h1 .lasco{color:#E07A2F}
+  .sub{font-size:clamp(14px,3.4vw,17px);max-width:620px;margin:10px auto 0}
+  .placar{
+    display:inline-flex;align-items:center;gap:10px;margin-top:14px;
+    background:#fff;border:3px dashed var(--mata2);border-radius:999px;padding:8px 18px;
+    font-family:'Baloo 2',cursive;font-weight:800;font-size:18px;color:var(--mata3);
+  }
+  .placar .pontos{display:flex;gap:5px}
+  .ponto{width:16px;height:16px;border-radius:50%;background:#EAE2D2;transition:all .4s}
+  .ponto.ok{background:var(--festa);transform:scale(1.15) rotate(20deg);border-radius:3px}
+
+  .secao-titulo{max-width:880px;margin:26px auto 0;padding:0 16px;
+    font-family:'Baloo 2',cursive;font-weight:800;font-size:clamp(18px,4.2vw,23px);color:#8A6A3B}
+
+  .zoologico{max-width:880px;margin:12px auto 0;padding:0 14px;display:grid;
+    grid-template-columns:repeat(auto-fit,minmax(140px,1fr));gap:14px}
+  .jaula{
+    position:relative;background:var(--creme2);border-radius:16px;padding:12px 8px 10px;
+    box-shadow:0 4px 0 #E4D5B8;cursor:pointer;border:none;text-align:center;
+    transition:transform .15s;overflow:hidden;font-family:inherit;color:inherit;
+  }
+  .jaula:hover,.jaula:focus-visible{transform:translateY(-3px)}
+  .jaula:focus-visible{outline:3px solid var(--festa);outline-offset:2px}
+  .jaula .cena{position:relative;height:120px}
+  .jaula svg.bicho{width:96px;height:96px;position:absolute;left:50%;bottom:0;translate:-50% 0;
+    transform-origin:50% 92%;animation:balanca 3.6s ease-in-out infinite}
+  .jaula:nth-child(2) svg.bicho{animation-delay:.6s}
+  .jaula:nth-child(3) svg.bicho{animation-delay:1.1s}
+  .jaula:nth-child(4) svg.bicho{animation-delay:1.7s}
+  .jaula:nth-child(5) svg.bicho{animation-delay:2.3s}
+  @keyframes balanca{0%,100%{transform:rotate(-2.4deg)}50%{transform:rotate(2.4deg)}}
+  .grades{position:absolute;inset:0;pointer-events:none;transition:transform 1.1s cubic-bezier(.5,-.2,.3,1), opacity 1.1s;
+    background:repeating-linear-gradient(90deg, transparent 0 16px, var(--barra) 16px 22px);
+    border-top:6px solid var(--barra);border-radius:16px 16px 0 0;opacity:.92}
+  .nome{font-family:'Baloo 2',cursive;font-weight:800;font-size:17px;margin-top:6px;color:var(--tinta)}
+  .estado{font-size:12.5px;font-style:italic;color:#8A7B63}
+  .jaula.livre{background:#EFF7E8;box-shadow:0 4px 0 var(--mata2)}
+  .jaula.livre .grades{transform:translateY(-110%);opacity:0}
+  .jaula.livre .estado{color:var(--mata3);font-style:normal;font-weight:700}
+  .jaula.livre svg.bicho{animation:pulinho .9s ease}
+  @keyframes pulinho{0%{transform:translateY(0)}35%{transform:translateY(-26px) rotate(-4deg)}65%{transform:translateY(0)}82%{transform:translateY(-10px)}100%{transform:translateY(0)}}
+
+  .festa{max-width:880px;margin:16px auto 0;padding:0 14px 40px}
+  .festa-cartao{
+    position:relative;border-radius:22px;min-height:220px;overflow:hidden;
+    background:linear-gradient(180deg,#EAF4E0 0%,#CFE6D2 55%,var(--rio2) 100%);
+    box-shadow:0 6px 0 #9DBFA4;padding:16px 16px 12px;
+  }
+  .festa-cartao h2{font-family:'Baloo 2',cursive;font-weight:800;color:var(--mata3);font-size:clamp(20px,4.5vw,26px)}
+  .festa-cartao .legenda{font-style:italic;color:#5F7A62;margin-top:6px;font-size:14px}
+  .bandeirinhas{position:absolute;top:0;left:0;right:0;height:34px;pointer-events:none}
+  .convidados{display:flex;flex-wrap:wrap;align-items:flex-end;gap:4px;min-height:110px;padding-top:12px}
+  .convidado{background:none;border:none;cursor:pointer;border-radius:12px;padding:2px}
+  .convidado:hover,.convidado:focus-visible{background:rgba(255,255,255,.5)}
+  .convidado:focus-visible{outline:3px solid var(--festa)}
+  .convidado svg{width:80px;height:80px;display:block;animation:chegou .8s ease both, balanca 4s 1s ease-in-out infinite;transform-origin:50% 92%}
+  @keyframes chegou{0%{transform:scale(0) rotate(-30deg);opacity:0}70%{transform:scale(1.15)}100%{transform:scale(1);opacity:1}}
+  .parabens{display:none;margin-top:10px;background:#fff;border-radius:14px;padding:12px 14px;
+    font-family:'Baloo 2',cursive;font-weight:800;color:var(--festa);font-size:clamp(16px,4vw,20px);text-align:center}
+  .parabens.mostra{display:block;animation:chegou .7s ease}
+
+  dialog{border:none;border-radius:22px;padding:0;max-width:420px;width:calc(100vw - 32px);
+    max-height:calc(100vh - 60px);background:var(--creme);box-shadow:0 20px 60px rgba(60,45,20,.35)}
+  dialog::backdrop{background:rgba(64,52,35,.5)}
+  .m-topo{
+    position:sticky;top:0;z-index:2;display:flex;align-items:center;gap:12px;
+    background:var(--mata3);color:#fff;padding:12px 14px;border-radius:22px 22px 0 0;
+  }
+  .m-topo .mini svg{width:52px;height:52px;display:block}
+  .m-titulo{flex:1;text-align:left}
+  .m-titulo h3{font-family:'Baloo 2',cursive;font-weight:800;font-size:20px;line-height:1.1}
+  .m-titulo .meta{font-size:12px;opacity:.92}
+  .fechar{
+    background:#fff;color:var(--mata3);border:none;width:38px;height:38px;border-radius:50%;
+    font-size:18px;font-weight:800;cursor:pointer;box-shadow:0 3px 0 rgba(0,0,0,.15);flex-shrink:0;
+  }
+  .fechar:hover{transform:scale(1.06)}
+  .fechar:focus-visible{outline:3px solid #fff;outline-offset:2px}
+  .m-corpo{padding:14px 14px 6px;overflow-y:auto}
+  .passos{display:grid;grid-template-columns:1fr;gap:10px}
+  .passo{display:flex;gap:10px;align-items:flex-start;background:#fff;border-radius:14px;padding:10px;box-shadow:0 2px 0 #EADFC6}
+  .passo .dia{flex-shrink:0;width:72px;height:72px;background:var(--creme2);border-radius:10px;display:grid;place-items:center}
+  .passo .dia svg{width:62px;height:62px}
+  .passo .txt{font-size:13.5px;line-height:1.4;padding-top:2px}
+  .passo .num{font-family:'Baloo 2',cursive;font-weight:800;color:#E07A2F;margin-right:4px}
+  .dica{margin:12px 0 4px;background:#EFF7E8;border-radius:12px;padding:10px 12px;font-size:13px}
+  .m-rodape{position:sticky;bottom:0;background:linear-gradient(0deg,var(--creme) 75%,transparent);
+    padding:12px 14px 16px;text-align:center}
+  .btn-foto{
+    display:inline-flex;align-items:center;gap:8px;font-family:'Baloo 2',cursive;font-weight:800;
+    font-size:17px;background:var(--festa);color:#fff;border:none;border-radius:999px;
+    padding:13px 22px;cursor:pointer;box-shadow:0 4px 0 #B84C68;transition:transform .12s;
+  }
+  .btn-foto:hover{transform:translateY(-2px)}
+  .btn-foto:active{transform:translateY(2px);box-shadow:0 1px 0 #B84C68}
+  .link-sem-foto{display:block;margin:10px auto 0;font-size:12.5px;color:#8A7B63;background:none;border:none;
+    text-decoration:underline;cursor:pointer;font-family:inherit}
+  .selo{
+    display:inline-flex;align-items:center;gap:8px;font-family:'Baloo 2',cursive;font-weight:800;
+    font-size:15px;color:var(--mata3);background:#EFF7E8;border:2px solid var(--mata2);
+    border-radius:999px;padding:10px 18px;
+  }
+
+  .confete{position:fixed;top:-20px;width:12px;height:14px;pointer-events:none;z-index:99;
+    clip-path:polygon(50% 0,100% 100%,0 100%);animation:cai linear forwards}
+  @keyframes cai{to{transform:translateY(105vh) rotate(720deg)}}
+
+  footer{max-width:880px;margin:0 auto;padding:0 18px 30px;text-align:center;font-size:12px;color:#93856D}
+
+  @media (prefers-reduced-motion: reduce){
+    .jaula svg.bicho,.convidado svg{animation:none!important}
+    .confete{display:none}
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <div class="idiomas" role="group" aria-label="Idioma / Language">
+    <button id="btn-pt" class="ativo" aria-pressed="true">🇧🇷 PT</button>
+    <button id="btn-en" aria-pressed="false">🇺🇸 EN</button>
+  </div>
+  <h1 id="t-titulo"></h1>
+  <p class="sub" id="t-sub"></p>
+  <div class="placar" aria-live="polite">
+    <span id="placar-txt"></span>
+    <span class="pontos" id="pontos"></span>
+  </div>
+</header>
+
+<main>
+  <h2 class="secao-titulo" id="t-zoo"></h2>
+  <section class="zoologico" id="zoologico"></section>
+
+  <section class="festa">
+    <div class="festa-cartao">
+      <svg class="bandeirinhas" viewBox="0 0 860 34" preserveAspectRatio="none" aria-hidden="true">
+        <path d="M0 6 Q 430 26 860 6" stroke="#B84C68" stroke-width="3" fill="none"/>
+        <g id="bandeiras"></g>
+      </svg>
+      <h2 id="t-festa"></h2>
+      <p class="legenda" id="t-legenda"></p>
+      <div class="convidados" id="convidados"></div>
+      <div class="parabens" id="parabens"></div>
+    </div>
+  </section>
+</main>
+
+<dialog id="modal" aria-labelledby="m-nome">
+  <div class="m-topo">
+    <span class="mini" id="m-mini" aria-hidden="true"></span>
+    <div class="m-titulo">
+      <h3 id="m-nome"></h3>
+      <div class="meta" id="m-meta"></div>
+    </div>
+    <button class="fechar" id="fechar">✕</button>
+  </div>
+  <div class="m-corpo">
+    <div class="passos" id="m-passos"></div>
+    <div class="dica" id="m-dica"></div>
+  </div>
+  <div class="m-rodape" id="m-rodape"></div>
+</dialog>
+<input type="file" accept="image/*" capture="environment" id="input-foto" hidden>
+
+<footer id="t-footer"></footer>
+
+<script>
+// ============ i18n ============
+const UI={
+ pt:{
+  titulo:'Agora vamos tirar os <span class="lasco">animais das jaulas!</span>',
+  sub:'Toque em qualquer bichinho — do zoológico ou da turma do rio — para ver o passo a passo do origami dele. Dobrou um amigo do zoológico? Tire uma foto ali mesmo e liberte-o!',
+  placar:n=>`${n} de 5 amigos libertados`,
+  zoo:'🔒 No zoológico, sonhando com a floresta…',
+  festa:'🎉 Festa dos Bichos',
+  legenda:'A turma do rio já chegou! Toque em um amigo para aprender a dobrá-lo. Cada resgate do zoológico traz mais um convidado.',
+  parabens:'Você libertou TODOS os bichinhos! A floresta está em festa! 🎊',
+  sonhando:'sonhando com a floresta…', livre:'Livre! 💚',
+  origami:b=>`Origami d${b.art} ${b.nome.pt}`,
+  meta:b=>`Dificuldade ${b.dif} • Papel: ${b.papel.pt}`,
+  btnFoto:'📸 Tirar foto do meu origami',
+  semFoto:'Não consigo fotografar agora — resgatar assim mesmo',
+  seloZoo:'💚 Este amigo já está livre! Reveja as dobras sempre que quiser.',
+  seloRio:'🌿 Amigo da turma do rio — sempre foi livre! Dobre e brinque com ele.',
+  dica:'Dica', fechar:'Fechar janela',
+  ariaJaula:b=>`${b.nome.pt} na jaula. Toque para ver o origami e resgatar.`,
+  ariaJaulaLivre:b=>`${b.nome.pt} foi libertado! Toque para rever o origami.`,
+  ariaConvidado:b=>b.origem==='rio'?`${b.nome.pt}, da turma do rio. Toque para ver o origami.`:`${b.nome.pt}, resgatado do zoológico. Toque para ver o origami.`,
+  footer:'Protótipo — “Do Jacaré Guloso”. A foto não sai do seu aparelho: nada é enviado nem guardado.',
+ },
+ en:{
+  titulo:'Now let’s get the <span class="lasco">animals out of the cages!</span>',
+  sub:'Tap any little animal — from the zoo or the river gang — to see its origami step by step. Folded a zoo friend? Take a photo right here and set it free!',
+  placar:n=>`${n} of 5 friends freed`,
+  zoo:'🔒 At the zoo, dreaming of the forest…',
+  festa:'🎉 Animal Party',
+  legenda:'The river gang is already here! Tap a friend to learn how to fold it. Every zoo rescue brings one more guest.',
+  parabens:'You freed ALL the little animals! The forest is celebrating! 🎊',
+  sonhando:'dreaming of the forest…', livre:'Free! 💚',
+  origami:b=>`${b.nome.en} Origami`,
+  meta:b=>`Difficulty ${b.dif} • Paper: ${b.papel.en}`,
+  btnFoto:'📸 Take a photo of my origami',
+  semFoto:'Can’t take a photo right now — rescue anyway',
+  seloZoo:'💚 This friend is already free! Review the folds anytime.',
+  seloRio:'🌿 A river gang friend — always been free! Fold it and play.',
+  dica:'Tip', fechar:'Close window',
+  ariaJaula:b=>`${b.nome.en} in the cage. Tap to see the origami and rescue it.`,
+  ariaJaulaLivre:b=>`${b.nome.en} has been freed! Tap to review the origami.`,
+  ariaConvidado:b=>b.origem==='rio'?`${b.nome.en}, from the river gang. Tap to see the origami.`:`${b.nome.en}, rescued from the zoo. Tap to see the origami.`,
+  footer:'Prototype — “The Greedy Alligator”. The photo never leaves your device: nothing is uploaded or stored.',
+ }
+};
+let lang='pt';
+const t=()=>UI[lang];
+
+// ============ olhos ============
+function olhos(cx1,cx2,cy,feliz,cor){
+  cor=cor||"#3A3228";
+  if(feliz){
+    return `<path d="M${cx1-4} ${cy} q4 -5 8 0" stroke="${cor}" stroke-width="2.4" fill="none" stroke-linecap="round"/>
+            <path d="M${cx2-4} ${cy} q4 -5 8 0" stroke="${cor}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`;
+  }
+  return `<circle cx="${cx1}" cy="${cy+1.5}" r="2.6" fill="${cor}"/><circle cx="${cx2}" cy="${cy+1.5}" r="2.6" fill="${cor}"/>
+          <path d="M${cx1-4.5} ${cy-3} l9 -1.5" stroke="${cor}" stroke-width="2.2" stroke-linecap="round"/>
+          <path d="M${cx2-4.5} ${cy-4.5} l9 1.5" stroke="${cor}" stroke-width="2.2" stroke-linecap="round"/>`;
+}
+const olho1=(cx,cy,feliz,cor)=>feliz
+  ?`<path d="M${cx-4} ${cy} q4 -5 8 0" stroke="${cor||'#3A3228'}" stroke-width="2.4" fill="none" stroke-linecap="round"/>`
+  :`<circle cx="${cx}" cy="${cy+1}" r="2.6" fill="${cor||'#3A3228'}"/>`;
+
+// ============ animais (SVG facetado) ============
+const svgTag=inner=>`<svg viewBox="0 0 100 100" class="bicho" aria-hidden="true">${inner}</svg>`;
+const desenhos={
+  elefante:f=>svgTag(`
+    <polygon points="18,86 30,44 74,40 84,86" fill="#9AA7B0"/><polygon points="30,44 52,58 74,40" fill="#B4C0C8"/>
+    <polygon points="12,38 34,30 30,58 8,56" fill="#8794A0"/><polygon points="34,30 52,40 30,58" fill="#A9B6BF"/>
+    <polygon points="8,56 16,60 12,72 4,70" fill="#7E8B96"/><polygon points="12,72 20,74 16,84 8,82" fill="#93A0AB"/>
+    <polygon points="60,30 78,24 88,44 70,48" fill="#B4C0C8"/><polygon points="60,30 70,48 52,44" fill="#8794A0"/>
+    ${olhos(36,48,40,f)}`),
+  leao:f=>svgTag(`
+    <polygon points="50,8 78,22 86,52 68,80 32,80 14,52 22,22" fill="#E0812F"/>
+    <polygon points="50,8 62,26 38,26" fill="#C9701F"/><polygon points="86,52 70,56 68,80" fill="#C9701F"/>
+    <polygon points="14,52 30,56 32,80" fill="#C9701F"/><polygon points="32,30 68,30 74,58 50,76 26,58" fill="#F0964B"/>
+    <polygon points="50,52 60,64 50,72 40,64" fill="#FBD9AE"/><polygon points="46,56 54,56 50,62" fill="#7A4A18"/>
+    ${olhos(40,60,44,f)}`),
+  girafa:f=>svgTag(`
+    <polygon points="40,88 46,40 60,40 70,88" fill="#F4C64E"/><polygon points="46,40 54,14 66,18 60,40" fill="#F7D571"/>
+    <polygon points="50,6 66,10 66,18 54,14" fill="#F4C64E"/><polygon points="48,2 52,8 46,10" fill="#C98A2B"/>
+    <polygon points="60,2 64,8 58,10" fill="#C98A2B"/><polygon points="48,50 56,54 52,62" fill="#D89B33"/>
+    <polygon points="56,66 64,70 60,78" fill="#D89B33"/><polygon points="44,72 50,76 46,84" fill="#D89B33"/>
+    ${olhos(54,62,10,f)}`),
+  tucano:f=>svgTag(`
+    <polygon points="30,30 62,24 70,58 44,84 24,66" fill="#3A3E46"/><polygon points="30,30 46,48 24,66" fill="#4B505A"/>
+    <polygon points="44,84 58,70 70,58" fill="#2C3038"/><polygon points="40,44 58,40 56,66 42,68" fill="#F6EBD4"/>
+    <polygon points="58,26 92,34 84,48 60,44" fill="#F08A3C"/><polygon points="84,48 92,34 94,44" fill="#D96F1F"/>
+    <polygon points="24,66 16,84 30,80" fill="#4B505A"/>
+    ${olho1(50,34,f,"#F6EBD4")}${f?"":`<path d="M45 30 l9 -1.5" stroke="#F6EBD4" stroke-width="2.2" stroke-linecap="round"/>`}`),
+  tartaruga:f=>svgTag(`
+    <polygon points="26,72 34,40 66,40 74,72" fill="#6FA05C"/><polygon points="34,40 50,28 66,40 50,54" fill="#88B674"/>
+    <polygon points="34,40 50,54 26,72 40,58" fill="#5C8A4B"/><polygon points="66,40 50,54 74,72 60,58" fill="#5C8A4B"/>
+    <polygon points="74,64 90,56 92,68 78,72" fill="#A4C48C"/><polygon points="26,72 14,78 22,84" fill="#88B674"/>
+    <polygon points="60,72 70,84 54,82" fill="#88B674"/><polygon points="34,72 42,84 28,82" fill="#88B674"/>
+    ${olho1(84,58,f)}${f?"":`<path d="M80 54 l8 -1" stroke="#3A3228" stroke-width="2" stroke-linecap="round"/>`}`),
+  jacare:()=>svgTag(`
+    <polygon points="16,58 4,48 12,62 2,58 10,70 18,74" fill="#4A7A49"/>
+    <polygon points="14,56 58,50 74,58 60,78 18,78" fill="#5B8C5A"/>
+    <polygon points="14,56 38,64 18,78" fill="#4A7A49"/>
+    <polygon points="24,72 56,70 50,78 26,78" fill="#F6EBD4"/>
+    <polygon points="58,50 92,36 96,48 74,58" fill="#6B9C6A"/>
+    <polygon points="74,58 96,70 86,78 62,74" fill="#4A7A49"/>
+    <polygon points="80,44 84,50 76,50" fill="#fff"/><polygon points="88,42 92,48 84,48" fill="#fff"/>
+    <polygon points="78,66 82,60 86,66" fill="#fff"/>
+    ${olho1(66,50,true)}`),
+  minhoca:()=>svgTag(`
+    <path d="M10 68 L22 48 L34 68 L46 48 L58 68 L70 48" stroke="#E07A2F" stroke-width="13" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+    <path d="M22 48 L34 68 M46 48 L58 68" stroke="#C9660F" stroke-width="13" stroke-linecap="round"/>
+    <polygon points="66,40 86,44 84,62 64,58" fill="#F0964B"/>
+    ${olhos(72,80,50,true)}<path d="M70 56 q5 3 10 0" stroke="#3A3228" stroke-width="2" fill="none" stroke-linecap="round"/>`),
+  sapo:()=>svgTag(`
+    <polygon points="28,44 72,44 80,68 50,80 20,68" fill="#7CAE5A"/>
+    <polygon points="28,44 50,34 72,44" fill="#93C270"/>
+    <polygon points="20,68 6,74 18,82" fill="#639446"/><polygon points="80,68 94,74 82,82" fill="#639446"/>
+    <polygon points="34,78 42,86 26,86" fill="#93C270"/><polygon points="66,78 74,86 58,86" fill="#93C270"/>
+    <polygon points="32,34 44,28 44,42" fill="#93C270"/><polygon points="68,34 56,28 56,42" fill="#93C270"/>
+    ${olhos(40,60,38,true)}<path d="M40 60 q10 6 20 0" stroke="#3A3228" stroke-width="2.2" fill="none" stroke-linecap="round"/>`),
+  passarinho:()=>svgTag(`
+    <polygon points="20,58 22,44 10,62 4,50 12,70 22,70" fill="#5E93C4"/>
+    <polygon points="20,58 56,38 82,54 62,74 28,72" fill="#7FB2DC"/>
+    <polygon points="38,52 64,44 54,68" fill="#5E93C4"/>
+    <polygon points="82,54 96,58 82,64" fill="#F4C64E"/>
+    ${olho1(70,50,true)}`),
+  peixinho:()=>svgTag(`
+    <polygon points="20,56 4,40 12,57 4,72" fill="#C4453A"/>
+    <polygon points="18,56 50,34 82,56 50,78" fill="#E05A4E"/>
+    <polygon points="50,34 82,56 50,56" fill="#EE7C70"/>
+    <path d="M36 48 q4 6 0 12 M48 44 q4 8 0 18" stroke="#C4453A" stroke-width="2" fill="none"/>
+    ${olho1(66,52,true)}<path d="M74 62 q3 2 6 0" stroke="#3A3228" stroke-width="2" fill="none" stroke-linecap="round"/>`),
+  coelho:()=>svgTag(`
+    <polygon points="32,8 42,46 24,46" fill="#F8F1EE"/><polygon points="33,16 39,42 29,42" fill="#F3C5CE"/>
+    <polygon points="68,8 76,46 58,46" fill="#F8F1EE"/><polygon points="67,16 73,42 63,42" fill="#F3C5CE"/>
+    <polygon points="22,42 78,42 66,76 34,76" fill="#F8F1EE"/>
+    <polygon points="22,42 34,76 30,58" fill="#EFE3DE"/><polygon points="78,42 66,76 70,58" fill="#EFE3DE"/>
+    ${olhos(40,60,54,true)}<polygon points="47,62 53,62 50,67" fill="#E88BA0"/>
+    <path d="M36 66 l-10 -2 M36 68 l-10 2 M64 66 l10 -2 M64 68 l10 2" stroke="#B9A79E" stroke-width="1.6"/>`),
+  macaco:()=>svgTag(`
+    <polygon points="16,32 8,42 16,52 24,42" fill="#B98A5E"/><polygon points="84,32 92,42 84,52 76,42" fill="#B98A5E"/>
+    <polygon points="28,24 72,24 82,54 50,80 18,54" fill="#8A5A34"/>
+    <polygon points="28,24 50,34 18,54" fill="#7A4C28"/><polygon points="72,24 50,34 82,54" fill="#9C6A40"/>
+    <polygon points="34,38 66,38 62,60 50,72 38,60" fill="#EBD3B0"/>
+    ${olhos(42,58,46,true)}<path d="M44 62 q6 5 12 0" stroke="#3A3228" stroke-width="2.2" fill="none" stroke-linecap="round"/>
+    <circle cx="47" cy="55" r="1.5" fill="#3A3228"/><circle cx="53" cy="55" r="1.5" fill="#3A3228"/>`),
+};
+
+// ============ mini-diagramas ============
+const D="fill:#F6E7C8;stroke:#B89B6A;stroke-width:1.6";
+const V="stroke:#C0392B;stroke-width:1.4;stroke-dasharray:3 3;fill:none";
+const SETA=d=>`<path d="${d}" stroke="#E86F8E" stroke-width="2" fill="none" marker-end="url(#s)"/>`;
+const DEFS=`<defs><marker id="s" markerWidth="6" markerHeight="6" refX="4" refY="3" orient="auto"><path d="M0 0 L5 3 L0 6 z" fill="#E86F8E"/></marker></defs>`;
+const box=inner=>`<svg viewBox="0 0 60 60" aria-hidden="true">${DEFS}${inner}</svg>`;
+const diagramas={
+  losango:box(`<polygon points="30,6 54,30 30,54 6,30" style="${D}"/><line x1="30" y1="6" x2="30" y2="54" style="${V}"/>`),
+  triangulo:box(`<polygon points="30,8 54,30 30,52 6,30" style="${D};opacity:.35"/><polygon points="6,30 54,30 30,52" style="${D}"/>${SETA("M30 12 Q40 20 33 28")}`),
+  pipa:box(`<polygon points="30,6 46,26 30,54 14,26" style="${D}"/><line x1="30" y1="6" x2="30" y2="54" style="${V}"/>${SETA("M10 34 Q18 30 24 33")}${SETA("M50 34 Q42 30 36 33")}`),
+  "dobra-meio":box(`<polygon points="30,8 44,26 30,52 16,26" style="${D}"/><line x1="30" y1="8" x2="30" y2="52" style="${V}"/>${SETA("M44 30 Q52 30 46 18")}`),
+  zigzag:box(`<path d="M8 36 L20 36 L26 26 L34 44 L42 30 L52 30" style="${D};fill:none;stroke-width:3"/>${SETA("M46 20 Q52 24 48 28")}`),
+  orelhas:box(`<polygon points="8,26 52,26 30,50" style="${D}"/><polygon points="8,26 20,26 10,40" style="${D};fill:#EDD9AC"/><polygon points="52,26 40,26 50,40" style="${D};fill:#EDD9AC"/>${SETA("M14 18 Q10 24 12 30")}${SETA("M46 18 Q50 24 48 30")}`),
+  "ponta-cima":box(`<polygon points="10,26 50,26 30,50" style="${D}"/><polygon points="22,36 38,36 30,22" style="${D};fill:#EDD9AC"/>${SETA("M30 48 Q38 40 32 28")}`),
+  degrau:box(`<path d="M8 34 L28 34 L28 26 L52 26" style="${D};fill:none;stroke-width:3"/><line x1="28" y1="22" x2="28" y2="38" style="${V}"/>${SETA("M40 16 Q46 20 42 24")}`),
+  invertida:box(`<polygon points="8,44 40,44 40,20" style="${D}"/><polygon points="40,20 40,32 32,26" style="${D};fill:#EDD9AC"/>${SETA("M48 16 Q42 18 40 24")}`),
+  base:box(`<polygon points="12,16 48,16 54,44 6,44" style="${D}"/><line x1="6" y1="38" x2="54" y2="38" style="${V}"/>${SETA("M30 52 Q30 46 30 42")}`),
+  enrolar:box(`<rect x="8" y="26" width="30" height="8" rx="2" style="${D}"/><circle cx="46" cy="30" r="9" style="${D};fill:#EDD9AC"/><circle cx="46" cy="30" r="4" style="${D}"/>${SETA("M40 14 Q52 16 52 26")}`),
+  colar:box(`<polygon points="14,20 46,20 46,46 14,46" style="${D}"/><path d="M30 10 q6 8 0 12 q-6 -4 0 -12" fill="#8FC0D6" stroke="#5E93AC"/>`),
+  tesoura:box(`<polygon points="12,18 48,18 48,44 12,44" style="${D}"/><line x1="30" y1="18" x2="30" y2="44" style="${V}"/><circle cx="22" cy="52" r="4" fill="none" stroke="#8A7B63" stroke-width="2"/><circle cx="34" cy="52" r="4" fill="none" stroke="#8A7B63" stroke-width="2"/><path d="M24 49 L40 34 M32 49 L16 34" stroke="#8A7B63" stroke-width="2"/>`),
+  "ponta-lado":box(`<polygon points="10,22 52,22 30,48" style="${D}"/><polygon points="10,22 24,22 12,38" style="${D};fill:#EDD9AC"/>${SETA("M14 12 Q8 18 10 26")}`),
+  "dobra-tras":box(`<polygon points="14,16 46,16 46,46 14,46" style="${D}"/><polygon points="46,16 46,28 36,16" style="${D};fill:#E3CFA0;stroke-dasharray:3 3"/>${SETA("M54 24 Q50 14 42 14")}`),
+  desenhar:box(`<polygon points="14,18 46,18 46,46 14,46" style="${D}"/><circle cx="25" cy="29" r="2.4" fill="#3A3228"/><circle cx="35" cy="29" r="2.4" fill="#3A3228"/><path d="M25 38 q5 4 10 0" stroke="#3A3228" stroke-width="2" fill="none" stroke-linecap="round"/><path d="M44 52 L54 42 l3 3 L47 55 z" fill="#E07A2F" stroke="#B85E14"/>`),
+  tira:box(`<rect x="6" y="26" width="48" height="9" rx="2" style="${D}"/>`),
+  sanfona:box(`<path d="M8 40 L16 24 L24 40 L32 24 L40 40 L48 24" style="stroke:#B89B6A;stroke-width:4;fill:none;stroke-linejoin:round"/>${SETA("M50 40 Q56 36 52 30")}`),
+  xis:box(`<rect x="14" y="10" width="32" height="42" style="${D}"/><path d="M14 10 L46 30 M46 10 L14 30" style="${V}"/>`),
+};
+
+// ============ dados bilíngues ============
+const P=(d,pt,en)=>[d,{pt,en}];
+const bichos=[
+ {id:"jacare",nome:{pt:"Jacaré",en:"Alligator"},art:"o",origem:"rio",dif:"★★☆",
+  papel:{pt:"quadrado verde 15×15 cm",en:"green 15×15 cm square"},
+  passos:[
+   P("losango","Coloque o papel com a face verde para baixo, em formato de losango (uma ponta para você).","Place the paper green side down, as a diamond (one point toward you)."),
+   P("losango","Dobre ao meio, ponta a ponta, para marcar a diagonal. Abra de novo.","Fold in half, point to point, to crease the diagonal. Open it again."),
+   P("pipa","Base pipa: dobre as duas laterais de baixo até encostarem no vinco do meio.","Kite base: fold the two lower edges in to meet the center crease."),
+   P("pipa","Dobre as duas laterais de cima também até o vinco do meio: um losango bem magrinho.","Fold the two upper edges to the center crease too: a long, skinny diamond."),
+   P("dobra-meio","Dobre o losango ao meio, no comprido, fechando como um livro: é o corpo.","Fold the diamond in half lengthwise, closing it like a book: the body."),
+   P("zigzag","Na ponta mais fina, faça uma dobra em zigue-zague: o rabo do jacaré.","On the thinner point, make a zigzag fold: the alligator’s tail."),
+   P("tesoura","Na ponta grossa, faça um corte reto pequeno (com um adulto!) e abra as abas: a bocarra!","On the thick point, make a small straight cut (with a grown-up!) and open the flaps: the big mouth!"),
+   P("desenhar","Desenhe olhos grandes, dentes e escamas. Seu jacaré guloso está pronto!","Draw big eyes, teeth and scales. Your greedy alligator is ready!")],
+  dica:{pt:"Aperte bem os vincos com a unha: jacaré bem dobrado fica com a boca aberta sozinha!",en:"Press the creases hard with your fingernail: a well-folded alligator keeps its mouth open by itself!"}},
+ {id:"minhoca",nome:{pt:"Minhoca",en:"Worm"},art:"a",origem:"rio",dif:"★☆☆",
+  papel:{pt:"tira laranja de 3×20 cm",en:"orange 3×20 cm paper strip"},
+  passos:[
+   P("tira","Segure a tira de papel na horizontal.","Hold the paper strip horizontally."),
+   P("degrau","Dobre uma pontinha de 1,5 cm para cima.","Fold a little 1.5 cm tip up."),
+   P("degrau","Vire a tira e dobre a mesma medida para o outro lado.","Flip the strip and fold the same amount the other way."),
+   P("sanfona","Continue dobrando para frente e para trás até o fim da tira: é a sanfona!","Keep folding back and forth to the end of the strip: an accordion!"),
+   P("sanfona","Estique um pouquinho a sanfona para a minhoca ficar ondulada.","Stretch the accordion a little so the worm gets wavy."),
+   P("tesoura","Arredonde a primeira dobra com uma tesourinha (peça ajuda!): é a cabeça.","Round the first fold with small scissors (ask for help!): the head."),
+   P("desenhar","Desenhe dois olhões e um sorriso. Prontinha para escapar de qualquer barriga!","Draw two big eyes and a smile. Ready to escape any belly!")],
+  dica:{pt:"Empurre e solte a sanfona sobre a mesa: a minhoca anda de verdade!",en:"Push and release the accordion on the table: the worm really walks!"}},
+ {id:"sapo",nome:{pt:"Sapo",en:"Frog"},art:"o",origem:"rio",dif:"★★★",
+  papel:{pt:"retângulo verde-claro 7,5×15 cm",en:"light-green 7.5×15 cm rectangle"},
+  passos:[
+   P("xis","Com o retângulo em pé, dobre e desdobre os cantos do topo dos dois lados: fica um X marcado.","With the rectangle upright, fold and unfold the top corners both ways: an X crease appears."),
+   P("dobra-tras","Dobre o topo para trás na altura do centro do X e desamasse.","Fold the top backward at the center of the X and unfold."),
+   P("triangulo","Aperte as laterais do vinco para dentro e abaixe o topo: forma-se um triângulo (base bomba d’água).","Push the sides of that crease inward and bring the top down: a triangle forms (waterbomb base)."),
+   P("ponta-cima","Dobre as duas pontas do triângulo para cima: as patas da frente.","Fold the two triangle points up: the front feet."),
+   P("pipa","Dobre as laterais do retângulo de baixo até o meio.","Fold the sides of the lower rectangle in to the middle."),
+   P("ponta-cima","Dobre a parte de baixo para cima, até a base do triângulo.","Fold the bottom part up to the base of the triangle."),
+   P("degrau","Dobre de novo para baixo, ao meio, num degrau de sanfona: as pernas de salto.","Fold it back down in half, making a step: the jumping legs."),
+   P("desenhar","Vire, desenhe os olhos e aperte o traseiro dele… soltou, pulou!","Flip it, draw the eyes and press its back… release — it jumps!")],
+  dica:{pt:"Faça uma linha de chegada e aposte corrida de sapos com a família!",en:"Draw a finish line and race frogs with your family!"}},
+ {id:"passarinho",nome:{pt:"Passarinho",en:"Little Bird"},art:"o",origem:"rio",dif:"★★☆",
+  papel:{pt:"quadrado azul 15×15 cm",en:"blue 15×15 cm square"},
+  passos:[
+   P("losango","Papel em losango, face colorida para baixo. Marque a diagonal e abra.","Diamond position, colored side down. Crease the diagonal and open."),
+   P("pipa","Base pipa: dobre as duas laterais de baixo até o vinco central.","Kite base: fold the two lower edges to the center crease."),
+   P("dobra-tras","Dobre a ponta de cima (a estreita) para trás, uns 3 cm: será a cauda.","Fold the top (narrow) point backward about 3 cm: it will be the tail."),
+   P("dobra-meio","Feche a figura ao meio, no comprido, como um livro.","Close the figure in half lengthwise, like a book."),
+   P("invertida","Dobra invertida na ponta fina: empurre a pontinha para baixo e para dentro, formando o bico.","Inside reverse fold on the thin point: push the tip down and in, making the beak."),
+   P("sanfona","Abra a dobra de trás em pequenas pregas: é o rabo em leque.","Open the back fold into small pleats: the fan tail."),
+   P("desenhar","Desenhe o olho de cada lado e uma asinha. Piu-piu, pronto!","Draw an eye on each side and a little wing. Tweet — done!")],
+  dica:{pt:"Segure pelo corpo e balance: as asas de papel parecem bater de verdade.",en:"Hold the body and rock it: the paper wings seem to really flap."}},
+ {id:"peixinho",nome:{pt:"Peixinho",en:"Little Fish"},art:"o",origem:"rio",dif:"★☆☆",
+  papel:{pt:"quadrado colorido 12×12 cm (faça vários!)",en:"colorful 12×12 cm square (make several!)"},
+  passos:[
+   P("triangulo","Papel em losango. Dobre ao meio formando um triângulo, com a ponta para baixo.","Diamond position. Fold in half into a triangle, point down."),
+   P("losango","Dobre o triângulo ao meio de novo, só para marcar o centro, e abra.","Fold the triangle in half again just to mark the center, then open."),
+   P("ponta-cima","Dobre a ponta direita do triângulo para cima, cruzando o vinco central: é o rabo.","Fold the right point up across the center crease: the tail."),
+   P("ponta-cima","Dobre a ponta esquerda para cima, cruzando por cima da outra: rabo em V.","Fold the left point up, crossing over the other: a V-shaped tail."),
+   P("dobra-tras","Vire o papel: apareceu o corpo do peixinho com o rabinho aberto!","Flip the paper: the fish body appears with its open little tail!"),
+   P("desenhar","Desenhe o olho, a boquinha e escamas em meia-lua.","Draw the eye, the little mouth and half-moon scales.")],
+  dica:{pt:"Dobre um cardume inteiro e cole num barbante: móbile de peixinhos do riacho!",en:"Fold a whole school and glue them on a string: a river-fish mobile!"}},
+ {id:"coelho",nome:{pt:"Coelho",en:"Bunny"},art:"o",origem:"rio",dif:"★☆☆",
+  papel:{pt:"quadrado branco ou rosa 15×15 cm",en:"white or pink 15×15 cm square"},
+  passos:[
+   P("triangulo","Papel em losango, face colorida para baixo. Dobre ao meio: triângulo com a ponta para baixo.","Diamond, colored side down. Fold in half: a triangle, point down."),
+   P("base","Dobre uma faixa de 2 cm da borda de cima para baixo: é a testa.","Fold a 2 cm band of the top edge down: the forehead."),
+   P("ponta-cima","Dobre a ponta direita da faixa para cima, em diagonal: primeira orelha.","Fold the right end of the band up diagonally: first ear."),
+   P("ponta-cima","Dobre a ponta esquerda igual: segunda orelha.","Fold the left end the same way: second ear."),
+   P("dobra-tras","Dobre a pontinha de baixo (o queixo) para trás.","Fold the bottom tip (the chin) backward."),
+   P("dobra-tras","Vire o papel: apareceu a carinha do coelho com orelhas em pé!","Flip the paper: the bunny face appears with its ears up!"),
+   P("desenhar","Desenhe olhos, focinho e bigodes. Que fofura!","Draw eyes, nose and whiskers. So cute!")],
+  dica:{pt:"Cole um circulinho de papel amassado atrás: é o rabinho de pompom.",en:"Glue a crumpled paper circle on the back: a pompom tail."}},
+ {id:"macaco",nome:{pt:"Macaco",en:"Monkey"},art:"o",origem:"rio",dif:"★★☆",
+  papel:{pt:"quadrado marrom 15×15 cm + sobra bege",en:"brown 15×15 cm square + beige scrap"},
+  passos:[
+   P("triangulo","Papel em losango. Dobre ao meio formando um triângulo com a ponta para baixo.","Diamond position. Fold in half into a triangle, point down."),
+   P("orelhas","Dobre as duas pontas de cima para baixo, deixando-as abertas para os lados: as orelhas.","Fold the two top points down, leaving them open to the sides: the big ears."),
+   P("dobra-tras","Dobre a pontinha de cada orelha para dentro, arredondando.","Fold the tip of each ear inward, rounding it."),
+   P("ponta-cima","Dobre a ponta de baixo para cima, até um pouco acima do meio: é o focinho.","Fold the bottom point up, a bit past the middle: the snout."),
+   P("degrau","Dobre a pontinha do focinho de volta para baixo, num degrau: é a boquinha.","Fold the snout tip back down in a small step: the mouth."),
+   P("colar","Recorte (com ajuda!) um coração invertido bege e cole no centro: o rosto do macaco.","Cut (with help!) an upside-down beige heart and glue it in the center: the monkey face."),
+   P("enrolar","Desenhe olhos espevitados. Para o rabo, enrole uma tirinha marrom no lápis e cole atrás!","Draw playful eyes. For the tail, curl a brown strip around a pencil and glue it behind!")],
+  dica:{pt:"O rabo enrolado no lápis vira uma mola: pendure seu macaco num galho de verdade.",en:"The pencil-curled tail becomes a spring: hang your monkey on a real branch."}},
+ {id:"elefante",nome:{pt:"Elefante",en:"Elephant"},art:"o",origem:"zoo",dif:"★★☆",
+  papel:{pt:"quadrado cinza 15×15 cm",en:"gray 15×15 cm square"},
+  passos:[
+   P("losango","Papel em losango, marque a diagonal vertical e abra.","Diamond position, crease the vertical diagonal and open."),
+   P("pipa","Base pipa: dobre as laterais superiores até o vinco central.","Kite base: fold the upper edges to the center crease."),
+   P("dobra-meio","Dobre a figura ao meio, para trás: um triângulo comprido deitado.","Fold the figure in half backward: a long triangle lying down."),
+   P("zigzag","A ponta fina é a tromba: três dobras em zigue-zague, como uma escadinha.","The thin point is the trunk: three zigzag folds, like a little staircase."),
+   P("orelhas","Na ponta larga, dobre um triângulo para baixo de cada lado: as orelhonas.","On the wide end, fold a triangle down on each side: the big ears."),
+   P("base","Dobre a base reta levemente para dentro, para ele ficar em pé.","Fold the straight base slightly inward so it stands up."),
+   P("desenhar","Desenhe olhinhos gentis e unhas nas patas. Um elefante fora da jaula!","Draw gentle little eyes and toenails. An elephant out of the cage!")],
+  dica:{pt:"Levante a pontinha da tromba: parece que ele está dando tchau de alegria.",en:"Lift the tip of the trunk: it looks like he’s waving with joy."}},
+ {id:"leao",nome:{pt:"Leão",en:"Lion"},art:"o",origem:"zoo",dif:"★★☆",
+  papel:{pt:"quadrado laranja 15×15 cm + tiras amarelas",en:"orange 15×15 cm square + yellow strips"},
+  passos:[
+   P("triangulo","Papel em losango. Dobre ao meio formando um triângulo com a ponta para baixo.","Diamond position. Fold in half into a triangle, point down."),
+   P("orelhas","Dobre as pontas esquerda e direita para baixo: as laterais da juba.","Fold the left and right points down: the sides of the mane."),
+   P("ponta-cima","Dobre a ponta de baixo para cima até o centro: o focinho quadrado.","Fold the bottom point up to the center: the square snout."),
+   P("degrau","Dobre a pontinha do focinho para baixo de novo, pequenina: o nariz.","Fold the snout tip back down, tiny: the nose."),
+   P("enrolar","Recorte tirinhas amarelas e enrole cada uma no lápis para encaracolar.","Cut short yellow strips and curl each around a pencil."),
+   P("colar","Cole os cachinhos em volta da cabeça: é a juba do rei!","Glue the curls around the head: the king’s mane!"),
+   P("desenhar","Desenhe olhos corajosos, bigodes e um sorriso mansinho. Roooar!","Draw brave eyes, whiskers and a gentle smile. Roar!")],
+  dica:{pt:"Quanto mais bagunçada a juba, mais valente o leão. Capriche nos cachos!",en:"The messier the mane, the braver the lion. Go wild with the curls!"}},
+ {id:"girafa",nome:{pt:"Girafa",en:"Giraffe"},art:"a",origem:"zoo",dif:"★★★",
+  papel:{pt:"quadrado amarelo 15×15 cm + caneta laranja",en:"yellow 15×15 cm square + orange pen"},
+  passos:[
+   P("pipa","Base pipa: dobre as duas laterais inferiores até o vinco central.","Kite base: fold the two lower edges to the center crease."),
+   P("pipa","Dobre também as laterais superiores até o centro: losango magrinho.","Fold the upper edges to the center too: a skinny diamond."),
+   P("dobra-meio","Dobre ao meio, no comprido: uma vareta de papel com uma ponta fina.","Fold in half lengthwise: a paper stick with one thin point."),
+   P("ponta-cima","Levante a ponta fina quase na vertical e vinque bem: o pescoção.","Lift the thin point almost vertical and crease well: the long neck."),
+   P("invertida","Dobra invertida na pontinha: empurre para dentro e para frente, formando a cabecinha.","Inside reverse fold at the tip: push it in and forward, making the little head."),
+   P("degrau","Na outra ponta, dobra em degrau para baixo: as pernas traseiras.","On the other end, make a step fold down: the back legs."),
+   P("desenhar","Desenhe as manchas laranja, os chifrinhos e olhos com cílios longos!","Draw the orange patches, little horns and long-lashed eyes!")],
+  dica:{pt:"Encoste a girafa numa plantinha de casa: ela adora “comer” folhas altas.",en:"Lean the giraffe on a houseplant: she loves “eating” tall leaves."}},
+ {id:"tucano",nome:{pt:"Tucano",en:"Toucan"},art:"o",origem:"zoo",dif:"★★☆",
+  papel:{pt:"quadrado preto 15×15 cm + retalho laranja",en:"black 15×15 cm square + orange scrap"},
+  passos:[
+   P("triangulo","Dobre ao meio formando um triângulo, com a dobra (a parte reta) para cima.","Fold in half into a triangle, with the folded (straight) edge on top."),
+   P("ponta-lado","Dobre a ponta esquerda para baixo, na diagonal: é o rabo.","Fold the left point down diagonally: the tail."),
+   P("degrau","Na ponta direita, dobre uma aba em degrau: a base do bico.","On the right point, fold a small flap in a step: the beak base."),
+   P("tesoura","Recorte no retalho laranja um bico grandão em formato de banana (peça ajuda!).","Cut a big banana-shaped beak from the orange scrap (ask for help!)."),
+   P("colar","Encaixe e cole o bico laranja na ponta direita.","Slot and glue the orange beak onto the right point."),
+   P("base","Dobre a base um pouquinho para dentro, para ele equilibrar em pé.","Fold the base slightly inward so it balances upright."),
+   P("desenhar","Cole ou desenhe o peito claro e o olho redondo azul. Brasileiríssimo!","Glue or draw the light chest and the round blue eye. Very Brazilian!")],
+  dica:{pt:"O bico pode ser maior que a cabeça: no tucano de verdade também é assim!",en:"The beak can be bigger than the head: real toucans are like that too!"}},
+ {id:"tartaruga",nome:{pt:"Tartaruga",en:"Turtle"},art:"a",origem:"zoo",dif:"★★☆",
+  papel:{pt:"quadrado verde-escuro 15×15 cm",en:"dark-green 15×15 cm square"},
+  passos:[
+   P("triangulo","Papel em losango, face verde para baixo. Dobre ao meio: triângulo com a ponta para baixo.","Diamond, green side down. Fold in half: a triangle, point down."),
+   P("orelhas","Dobre as pontas esquerda e direita para baixo, com uma frestinha: as patas da frente.","Fold the left and right points down, leaving a small gap: the front feet."),
+   P("ponta-cima","Dobre a ponta de baixo para cima, só na camada de cima: começa o casco.","Fold the bottom point up, top layer only: the shell begins."),
+   P("dobra-tras","Dobre as pontinhas laterais dessa camada para trás: as patas de trás.","Fold the side tips of that layer backward: the back feet."),
+   P("degrau","Dobre a ponta de cima um pouco para baixo, por trás: a cabecinha espiando.","Fold the top point slightly down, behind: the little head peeking out."),
+   P("dobra-tras","Arredonde os cantos do casco dobrando as quininhas para trás.","Round the shell corners by folding the tips backward."),
+   P("desenhar","Desenhe os gomos do casco e olhinhos calmos. Devagarinho, chegou!","Draw the shell pieces and calm eyes. Slowly, she made it!")],
+  dica:{pt:"Desenhe cada gomo do casco de uma cor: tartaruga arco-íris saindo da jaula!",en:"Color each shell piece differently: a rainbow turtle out of the cage!"}},
+];
+const porId=Object.fromEntries(bichos.map(b=>[b.id,b]));
+const zooBichos=bichos.filter(b=>b.origem==="zoo");
+const rioBichos=bichos.filter(b=>b.origem==="rio");
+const livresSet=new Set();
+let livres=0;
+
+// ============ montar zoológico ============
+const zoo=document.getElementById('zoologico');
+zooBichos.forEach(b=>{
+  const el=document.createElement('button');
+  el.className='jaula';el.id='jaula-'+b.id;
+  el.innerHTML=`<div class="cena">${desenhos[b.id](false)}<div class="grades"></div></div>
+    <div class="nome"></div><div class="estado"></div>`;
+  el.addEventListener('click',()=>abrirModal(b.id));
+  zoo.appendChild(el);
+});
+
+// ============ festa (turma do rio já presente) ============
+const conv=document.getElementById('convidados');
+function addConvidado(b,delay){
+  const btn=document.createElement('button');
+  btn.className='convidado';btn.dataset.id=b.id;
+  btn.innerHTML=desenhos[b.id](true);
+  if(delay)btn.querySelector('svg').style.animationDelay=delay+'s, '+(1+delay)+'s';
+  btn.addEventListener('click',()=>abrirModal(b.id));
+  conv.appendChild(btn);
+  btn.setAttribute('aria-label',t().ariaConvidado(b));
+}
+rioBichos.forEach((b,i)=>addConvidado(b,i*0.12));
+
+// bandeirinhas + placar
+const cores=['#E86F8E','#F4C64E','#6FA05C','#F08A3C','#8FC0D6'];
+const bg=document.getElementById('bandeiras');
+for(let i=0;i<14;i++){const x=20+i*60,y=8+Math.sin(i/13*Math.PI)*14;
+  bg.innerHTML+=`<polygon points="${x},${y} ${x+16},${y} ${x+8},${y+16}" fill="${cores[i%5]}"/>`;}
+const pontos=document.getElementById('pontos');
+zooBichos.forEach(()=>{const d=document.createElement('span');d.className='ponto';pontos.appendChild(d);});
+
+// ============ aplicar idioma ============
+function aplicarIdioma(){
+  const L=t();
+  document.documentElement.lang=lang==='pt'?'pt-BR':'en';
+  document.getElementById('t-titulo').innerHTML=L.titulo;
+  document.getElementById('t-sub').textContent=L.sub;
+  document.getElementById('t-zoo').textContent=L.zoo;
+  document.getElementById('t-festa').textContent=L.festa;
+  document.getElementById('t-legenda').textContent=L.legenda;
+  document.getElementById('parabens').textContent=L.parabens;
+  document.getElementById('t-footer').textContent=L.footer;
+  document.getElementById('placar-txt').textContent=L.placar(livres);
+  document.getElementById('fechar').setAttribute('aria-label',L.fechar);
+  zooBichos.forEach(b=>{
+    const j=document.getElementById('jaula-'+b.id);
+    j.querySelector('.nome').textContent=b.nome[lang];
+    const livre=livresSet.has(b.id);
+    j.querySelector('.estado').textContent=livre?L.livre:L.sonhando;
+    j.setAttribute('aria-label',livre?L.ariaJaulaLivre(b):L.ariaJaula(b));
+  });
+  document.querySelectorAll('.convidado').forEach(c=>{
+    c.setAttribute('aria-label',L.ariaConvidado(porId[c.dataset.id]));
+  });
+  document.getElementById('btn-pt').classList.toggle('ativo',lang==='pt');
+  document.getElementById('btn-en').classList.toggle('ativo',lang==='en');
+  document.getElementById('btn-pt').setAttribute('aria-pressed',lang==='pt');
+  document.getElementById('btn-en').setAttribute('aria-pressed',lang==='en');
+  if(modal.open&&atual)renderModal(atual.id);
+}
+document.getElementById('btn-pt').addEventListener('click',()=>{lang='pt';aplicarIdioma();});
+document.getElementById('btn-en').addEventListener('click',()=>{lang='en';aplicarIdioma();});
+
+// ============ janela de instruções ============
+const modal=document.getElementById('modal');
+let atual=null;
+function renderModal(id){
+  const L=t(),b=porId[id];atual=b;
+  const preso=b.origem==="zoo"&&!livresSet.has(id);
+  document.getElementById('m-mini').innerHTML=desenhos[id](!preso);
+  document.getElementById('m-nome').textContent=L.origami(b);
+  document.getElementById('m-meta').textContent=L.meta(b);
+  document.getElementById('m-passos').innerHTML=b.passos.map(([d,txt],i)=>
+    `<div class="passo"><div class="dia">${diagramas[d]}</div>
+     <div class="txt"><span class="num">${i+1}.</span>${txt[lang]}</div></div>`).join('');
+  document.getElementById('m-dica').innerHTML='💡 <strong>'+L.dica+':</strong> '+b.dica[lang];
+  const rod=document.getElementById('m-rodape');
+  if(preso){
+    rod.innerHTML=`<button class="btn-foto" id="btn-foto">${L.btnFoto}</button>
+      <button class="link-sem-foto" id="sem-foto">${L.semFoto}</button>`;
+    document.getElementById('btn-foto').onclick=()=>document.getElementById('input-foto').click();
+    document.getElementById('sem-foto').onclick=()=>resgatar();
+  }else if(b.origem==="zoo"){
+    rod.innerHTML=`<span class="selo">${L.seloZoo}</span>`;
+  }else{
+    rod.innerHTML=`<span class="selo">${L.seloRio}</span>`;
+  }
+}
+function abrirModal(id){
+  renderModal(id);
+  modal.showModal();
+  modal.querySelector('.m-corpo').scrollTop=0;
+}
+document.getElementById('fechar').addEventListener('click',()=>modal.close());
+document.getElementById('input-foto').addEventListener('change',e=>{
+  if(e.target.files.length){e.target.value='';resgatar();}
+});
+
+// ============ resgate ============
+function resgatar(){
+  if(!atual||atual.origem!=="zoo"||livresSet.has(atual.id))return;
+  modal.close();
+  const b=atual,L=t();
+  livresSet.add(b.id);
+  const jaula=document.getElementById('jaula-'+b.id);
+  jaula.classList.add('livre');
+  jaula.querySelector('.estado').textContent=L.livre;
+  jaula.setAttribute('aria-label',L.ariaJaulaLivre(b));
+  setTimeout(()=>{jaula.querySelector('.cena').innerHTML=desenhos[b.id](true)+'<div class="grades" style="transform:translateY(-110%);opacity:0"></div>';},900);
+  setTimeout(()=>{addConvidado(b,0);confetes(28);},1000);
+  livres++;
+  document.getElementById('placar-txt').textContent=L.placar(livres);
+  document.querySelectorAll('.ponto')[livres-1].classList.add('ok');
+  if(livres===zooBichos.length){setTimeout(()=>{document.getElementById('parabens').classList.add('mostra');confetes(90);},1400);}
+}
+
+// ============ confetes ============
+function confetes(n){
+  for(let i=0;i<n;i++){
+    const c=document.createElement('div');c.className='confete';
+    c.style.left=Math.random()*100+'vw';
+    c.style.background=cores[Math.floor(Math.random()*cores.length)];
+    c.style.animationDuration=(2.2+Math.random()*2)+'s';
+    c.style.animationDelay=(Math.random()*.6)+'s';
+    document.body.appendChild(c);
+    setTimeout(()=>c.remove(),5000);
+  }
+}
+
+aplicarIdioma();
+</script>
+</body>
+</html>

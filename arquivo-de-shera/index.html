@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="color-scheme" content="dark light" />
+    <meta name="theme-color" content="#0b131e" />
+    <title>O Arquivo de Shera · Lua Nova Studio</title>
+    <meta
+      name="description"
+      content="O Arquivo de Shera: Quatro Noites e Um Segredo. Série de livros-jogos de mistério dedutivo de Amanda Reznor, pela Lua Nova Studio."
+    />
+    <meta property="og:title" content="O Arquivo de Shera · Quatro Noites e Um Segredo" />
+    <meta property="og:description" content="Quatro noites para salvar uma rainha. Risque os nomes impossíveis e descubra as mensagens nas listas." />
+    <meta property="og:image" content="https://luanovastudio.com/arquivo-de-shera/img/vol1.jpg" />
+    <link rel="icon" href="../assets/brand/logo-minimalista-lua-nova.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="shera.css" />
+  </head>
+  <body>
+    <a class="skip" href="#conteudo" data-t="skip">Pular para o conteúdo</a>
+
+    <!-- Lua Nova strip: the way back to the studio site -->
+    <div class="studio-strip">
+      <div class="wrap strip-inner">
+        <a class="strip-back" href="../index.html">
+          <img src="../assets/brand/logo-minimalista-lua-nova.png" alt="" width="28" height="28" />
+          <span><span aria-hidden="true">←</span> Lua Nova Studio</span>
+        </a>
+        <nav class="strip-nav" aria-label="Seções">
+          <a href="#volumes" data-t="navVolumes">Volumes</a>
+          <a href="#kerman" data-t="navWorld">O mundo</a>
+          <a href="#sala" data-t="navForum">Sala de Leitura</a>
+        </nav>
+        <div class="lang" role="group" aria-label="Idioma / Language">
+          <button type="button" data-lang="pt" aria-pressed="true">PT</button>
+          <button type="button" data-lang="en" aria-pressed="false">EN</button>
+        </div>
+      </div>
+    </div>
+
+    <main id="conteudo">
+      <!-- Hero -->
+      <header class="hero">
+        <div class="salt" aria-hidden="true"></div>
+        <div class="wrap hero-grid">
+          <div class="hero-copy">
+            <p class="eyebrow" data-t="heroEyebrow">Uma série de livros-jogos de Amanda Reznor</p>
+            <h1 class="hero-title">
+              <span class="t-small" data-t="heroPre">O Arquivo de</span>
+              <span class="t-big">Shera</span>
+            </h1>
+            <p class="hero-sub" data-t="heroSub">Quatro Noites e Um Segredo</p>
+            <div class="rule" aria-hidden="true"><span></span></div>
+            <p class="hero-promise" data-t="heroPromise">
+              Quatro noites para salvar uma rainha. Risque os nomes impossíveis, descubra mensagens nas listas e siga uma
+              história que muda quando você volta ao começo.
+            </p>
+            <div class="hero-cta">
+              <a class="btn btn-bronze" href="#volumes" data-t="ctaVolumes">Conhecer os volumes</a>
+              <a class="btn btn-line" href="#sala" data-t="ctaForum">Entrar na Sala de Leitura</a>
+            </div>
+          </div>
+          <figure class="hero-cover arch">
+            <img src="img/vol1.jpg" width="560" height="840" alt="Capa de The Bronze Eye, volume 1 de O Arquivo de Shera" data-t-alt="heroCoverAlt" />
+          </figure>
+        </div>
+      </header>
+
+      <!-- The premise -->
+      <section class="premise wrap" aria-labelledby="premissa-titulo">
+        <h2 id="premissa-titulo" class="sr-only" data-t="premiseTitle">A premissa</h2>
+        <p class="premise-text" data-t="premise">
+          Dois anos depois de acordar de um coma, a rainha viúva Sherazade é obrigada pela corte a um segundo casamento de
+          conveniência. Na noite da assinatura, ela é presa. O juiz que vai interrogá-la é o próprio noivo, o único Terceiro
+          Leitor de Kerman, que acaba de ter a memória raspada e não sabe mais nada sobre ela.
+        </p>
+        <p class="premise-quote">
+          <span data-t="premiseQuote">“As histórias nunca foram minhas. Esta noite, quem vai ler é você.”</span>
+          <cite>— Shera</cite>
+        </p>
+      </section>
+
+      <!-- Kerman: the crossing-out band -->
+      <section class="ivory" id="kerman" aria-labelledby="kerman-titulo">
+        <div class="wrap ivory-grid">
+          <div>
+            <p class="eyebrow eyebrow-ink" data-t="kermanEyebrow">O Arquivo de Kerman</p>
+            <h2 id="kerman-titulo" class="h2-ink" data-t="kermanTitle">Em Kerman, nada se destrói; apenas se corrige.</h2>
+            <p data-t="kermanText1">
+              Escavado andar sobre andar no coração de um penhasco de sal, o Arquivo guarda todos os processos da cidade. O sal
+              preserva o papel, e por isso a primeira lei proíbe o fogo lá dentro.
+            </p>
+            <p data-t="kermanText2">
+              Corrigir é riscar: um nome riscado continua legível, só deixa de valer. As crianças aprendem a ler duas vezes —
+              primeiro o que está escrito, depois o que sobra quando se risca o que não pertence.
+            </p>
+          </div>
+          <div class="ledger" aria-labelledby="ledger-hint">
+            <p class="ledger-head">
+              <span data-t="ledgerHead">Rol de testemunhas</span>
+              <span class="ledger-id">V0-C00</span>
+            </p>
+            <ol class="ledger-list">
+              <li><button type="button">Nadim al-Sarraf</button></li>
+              <li><button type="button">Yasmin bint Harith</button></li>
+              <li><button type="button">Qasim, o copista</button></li>
+              <li><button type="button">Layla de Shiraz</button></li>
+              <li><button type="button">Bashir Tarkhan</button></li>
+              <li><button type="button">Hind, a pesadora</button></li>
+            </ol>
+            <p class="ledger-hint" id="ledger-hint" data-t="ledgerHint">Toque num nome para riscá-lo. Ele continua legível — só deixa de valer.</p>
+          </div>
+        </div>
+      </section>
+
+      <!-- How to read -->
+      <section class="how wrap" aria-labelledby="como-titulo">
+        <p class="eyebrow" data-t="howEyebrow">Como se lê</p>
+        <h2 id="como-titulo" data-t="howTitle">Sem dados, sem fichas, sem recortes</h2>
+        <ol class="how-grid">
+          <li class="how-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M8 24h32" /><path d="M10 16h22M10 32h26" opacity=".45" /></svg>
+            <h3 data-t="how1Title">Risque</h3>
+            <p data-t="how1Text">Elimine os nomes impossíveis. O que sobra, lido na ordem, começa a falar.</p>
+          </li>
+          <li class="how-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M10 10l28 28M38 10L10 38" /><circle cx="24" cy="24" r="4" /></svg>
+            <h3 data-t="how2Title">Cruze</h3>
+            <p data-t="how2Text">Compare depoimentos, listas e registros. A pista está no que não combina.</p>
+          </li>
+          <li class="how-card">
+            <svg viewBox="0 0 48 48" aria-hidden="true"><path d="M24 8v32M14 40h20M10 16h28" /><path d="M10 16l-5 11h10zM38 16l-5 11h10z" /></svg>
+            <h3 data-t="how3Title">Pese</h3>
+            <p data-t="how3Text">A balança do Terceiro Leitor não mente. Cada caso resolvido salva um condenado.</p>
+          </li>
+        </ol>
+        <p class="how-note" data-t="howNote">
+          O leitor casual resolve o caso de cada volume. O leitor atento ouve a mensagem escondida — e descobre que a história
+          muda quando volta ao começo.
+        </p>
+      </section>
+
+      <!-- Volumes -->
+      <section class="volumes" id="volumes" aria-labelledby="volumes-titulo">
+        <div class="wrap">
+          <p class="eyebrow" data-t="volEyebrow">Cinco tomos · quatro casos e uma espiral</p>
+          <h2 id="volumes-titulo" data-t="volTitle">Os volumes</h2>
+          <ul class="vol-grid">
+            <li class="vol" style="--vol: #d3a766; --vol-shadow: #704727">
+              <figure class="arch"><img src="img/vol1.jpg" width="560" height="840" loading="lazy" alt="" /></figure>
+              <p class="vol-num">Vol. 1 · <span data-t="colBronze">Bronze</span></p>
+              <h3 data-t="vol1">O Olho de Bronze</h3>
+              <p class="vol-en">The Bronze Eye</p>
+            </li>
+            <li class="vol" style="--vol: #d89a99; --vol-shadow: #682e3c">
+              <figure class="arch"><img src="img/vol2.jpg" width="560" height="840" loading="lazy" alt="" /></figure>
+              <p class="vol-num">Vol. 2 · <span data-t="colRuby">Rubi</span></p>
+              <h3 data-t="vol2">O Banquete de Cinzas</h3>
+              <p class="vol-en">Banquet of Ashes</p>
+            </li>
+            <li class="vol" style="--vol: #c3d1dc; --vol-shadow: #536779">
+              <figure class="arch"><img src="img/vol3.jpg" width="560" height="840" loading="lazy" alt="" /></figure>
+              <p class="vol-num">Vol. 3 · <span data-t="colSilver">Prata</span></p>
+              <h3 data-t="vol3">A Câmara dos Espelhos</h3>
+              <p class="vol-en">Chamber of Mirrors</p>
+            </li>
+            <li class="vol" style="--vol: #83bfa3; --vol-shadow: #285746">
+              <figure class="arch"><img src="img/vol4.jpg" width="560" height="840" loading="lazy" alt="" /></figure>
+              <p class="vol-num">Vol. 4 · <span data-t="colJade">Jade</span></p>
+              <h3 data-t="vol4">O Jogo da Quimera</h3>
+              <p class="vol-en">Chimera Game</p>
+            </li>
+            <li class="vol" style="--vol: #ba9cd4; --vol-shadow: #543866">
+              <figure class="arch"><img src="img/vol5.jpg" width="560" height="840" loading="lazy" alt="" /></figure>
+              <p class="vol-num">Vol. 5 · <span data-t="colAmethyst">Ametista</span></p>
+              <h3 data-t="vol5">A Quinta Noite</h3>
+              <p class="vol-en">The Fifth Night</p>
+            </li>
+          </ul>
+          <p class="vol-status" data-t="volStatus">Em produção. O volume 1 chega primeiro, em inglês, pela Amazon.</p>
+        </div>
+      </section>
+
+      <!-- Characters -->
+      <section class="people wrap" aria-labelledby="pessoas-titulo">
+        <p class="eyebrow" data-t="peopleEyebrow">Na cela de isolamento</p>
+        <h2 id="pessoas-titulo" data-t="peopleTitle">Uma prisioneira e o seu juiz</h2>
+        <div class="people-grid">
+          <figure class="plate arch">
+            <img src="img/grades.jpg" width="720" height="1201" loading="lazy" alt="Gravura: Shera atrás das grades de ferro, diante de Tarik" data-t-alt="platePrisonAlt" />
+          </figure>
+          <div class="people-copy">
+            <article>
+              <h3>Shera</h3>
+              <p data-t="sheraText">
+                Rainha viúva, mãe de três filhos, cerca de trinta e cinco anos. Usa só metade do nome e nunca explica por quê:
+                quem não é nomeado com exatidão não pode ser alcançado. Conta degraus quando tem medo. Recusa-se a contar
+                histórias.
+              </p>
+            </article>
+            <article>
+              <h3>Tarik</h3>
+              <p data-t="tarikText">
+                O único Terceiro Leitor de Kerman: lê o que foi escrito para ser lido errado, e ninguém confere o que ele lê.
+                Frio, exato, ritualístico. Afia três penas sempre na mesma ordem e nunca relê.
+              </p>
+            </article>
+            <figure class="plate plate-small arch">
+              <img src="img/assinatura.jpg" width="720" height="1200" loading="lazy" alt="Gravura: o contrato com a assinatura interrompida, no Arquivo de Kerman" data-t-alt="plateSignatureAlt" />
+              <figcaption data-t="plateSignatureCap">A assinatura interrompida.</figcaption>
+            </figure>
+          </div>
+        </div>
+      </section>
+
+      <!-- Forum -->
+      <section class="sala" id="sala" aria-labelledby="sala-titulo">
+        <div class="wrap">
+          <div class="sala-head">
+            <div>
+              <p class="eyebrow" data-t="forumEyebrow">Para leitores</p>
+              <h2 id="sala-titulo" data-t="forumTitle">A Sala de Leitura</h2>
+              <p class="sala-lead" data-t="forumLead">
+                Troque teorias, peça uma dica, discuta os casos. Cada volume tem a sua sala, para que ninguém leia a solução
+                antes da hora.
+              </p>
+            </div>
+            <div class="auth" data-forum-auth></div>
+          </div>
+
+          <div class="forum" data-forum>
+            <p class="forum-status" data-forum-status data-t="forumLoading">Abrindo a Sala de Leitura…</p>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <footer class="foot">
+      <div class="wrap foot-inner">
+        <a class="foot-back" href="../index.html">
+          <img src="../assets/brand/logo-minimalista-lua-nova.png" alt="" width="40" height="40" />
+          <span>Lua Nova Studio</span>
+        </a>
+        <p data-t="footNote">O Arquivo de Shera © Amanda Reznor · Lua Nova Studio. Todos os direitos reservados.</p>
+      </div>
+    </footer>
+
+    <script src="firebase-config.js"></script>
+    <script src="shera.js"></script>
+    <script type="module" src="forum.js"></script>
+  </body>
+</html>

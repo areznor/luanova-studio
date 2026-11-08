@@ -1,0 +1,626 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>A Casa do Kiddo — Venha Ver Atrás da Porta</title>
+<meta name="description" content="Extensão interativa do livro Venha Ver Atrás da Porta, de Amanda Reznor. Abra os cômodos com as dicas decifradas.">
+<meta property="og:title" content="A Casa do Kiddo">
+<meta property="og:description" content="Venha ver atrás da porta — o site companheiro do livro.">
+<meta property="og:type" content="website">
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=IM+Fell+English+SC&family=IM+Fell+English:ital@0;1&family=Crimson+Pro:ital,wght@0,300;0,400;0,600;1,300;1,400&display=swap" rel="stylesheet">
+<style>
+:root{
+  --noite:#0a0a0e;
+  --breu:#111116;
+  --osso:#e6e1d3;
+  --cinza:#8d8a80;
+  --vela:#f0a848;
+  --r1:#e85c4a; --r2:#f0813e; --r3:#e8cb52; --r4:#41c47e; --r5:#54a6e0; --r6:#a07ce0; --r7:#c07ce0;
+  --serif:'Crimson Pro',serif;
+  --display:'IM Fell English SC',serif;
+  --fell:'IM Fell English',serif;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{
+  background:var(--noite);
+  color:var(--osso);
+  font-family:var(--serif);
+  font-size:19px;
+  line-height:1.6;
+  overflow-x:hidden;
+}
+::selection{background:var(--vela);color:var(--noite)}
+button{font-family:inherit;cursor:pointer}
+:focus-visible{outline:2px solid var(--vela);outline-offset:3px}
+
+/* ---------- grain / atmosphere ---------- */
+body::after{
+  content:'';position:fixed;inset:0;pointer-events:none;z-index:120;opacity:.05;
+  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence baseFrequency='.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='120' height='120' filter='url(%23n)' opacity='.9'/%3E%3C/svg%3E");
+}
+
+/* ---------- entrada: a porta ---------- */
+#porta-cena{
+  min-height:100vh;display:flex;flex-direction:column;align-items:center;justify-content:center;
+  gap:2.2rem;padding:2rem;text-align:center;position:relative;
+}
+#porta-cena h1{
+  font-family:var(--display);font-weight:400;letter-spacing:.12em;
+  font-size:clamp(1.6rem,4.6vw,3rem);color:var(--osso);
+}
+#porta-cena .vinheta{font-family:var(--fell);font-style:italic;color:var(--cinza);font-size:1.05rem;max-width:34ch}
+.porta-wrap{perspective:900px;margin:1rem 0}
+.porta{
+  width:130px;height:220px;background:#1a1620;border:2px solid #2e2836;border-radius:4px 4px 0 0;
+  position:relative;transform-origin:left center;transition:transform 1.6s cubic-bezier(.6,0,.2,1);
+  box-shadow:0 0 0 6px #0d0c11;
+}
+.porta::before{ /* maçaneta */
+  content:'';position:absolute;right:12px;top:50%;width:9px;height:9px;border-radius:50%;
+  background:var(--vela);box-shadow:0 0 8px rgba(240,168,72,.7);
+}
+.porta-luz{ /* fresta de luz sob a porta */
+  position:absolute;left:50%;bottom:-7px;transform:translateX(-50%);
+  width:150px;height:7px;background:var(--vela);filter:blur(5px);opacity:.85;
+  animation:tremula 2.6s ease-in-out infinite;
+}
+@keyframes tremula{0%,100%{opacity:.85;width:150px}45%{opacity:.55;width:140px}70%{opacity:.95;width:156px}}
+.porta-wrap.aberta .porta{transform:rotateY(-78deg)}
+#entrar{
+  background:none;border:1px solid var(--cinza);color:var(--osso);
+  font-family:var(--display);letter-spacing:.18em;font-size:.95rem;
+  padding:.75rem 2rem;border-radius:2px;transition:border-color .3s,color .3s,box-shadow .3s;
+}
+#entrar:hover{border-color:var(--vela);color:var(--vela);box-shadow:0 0 18px rgba(240,168,72,.15)}
+.aviso-livro{position:absolute;bottom:1.4rem;font-size:.85rem;color:var(--cinza);font-style:italic;max-width:52ch;padding:0 1rem}
+
+/* ---------- a casa ---------- */
+#casa{display:none;min-height:100vh;padding:4rem 1rem 6rem;position:relative}
+#casa.visivel{display:block}
+.casa-topo{text-align:center;margin-bottom:2.6rem}
+.casa-topo h2{font-family:var(--display);font-weight:400;letter-spacing:.14em;font-size:clamp(1.3rem,3.4vw,2rem)}
+.casa-topo p{color:var(--cinza);font-style:italic;font-size:1rem;max-width:56ch;margin:.6rem auto 0}
+.casa-mapa{
+  max-width:860px;margin:0 auto;display:grid;gap:14px;position:relative;border-radius:6px;
+  grid-template-columns:1fr 1fr 1fr;
+  grid-template-areas:
+    "telhado telhado telhado"
+    "quarto corredor sala"
+    "escritorio hall relogio"
+    "jardim jardim jardim";
+}
+.telhado{
+  grid-area:telhado;height:56px;position:relative;
+}
+.telhado::before{
+  content:'';position:absolute;left:6%;right:6%;bottom:0;height:0;
+  border-left:44vw solid transparent;border-right:44vw solid transparent;
+  border-bottom:52px solid #16141c;max-width:100%;
+  border-left-width:calc(min(44vw,392px));border-right-width:calc(min(44vw,392px));
+  left:50%;transform:translateX(-50%);
+}
+.comodo{
+  grid-area:auto;background:var(--breu);border:1px solid #23212b;border-radius:4px;
+  min-height:170px;padding:1.1rem;position:relative;text-align:left;color:var(--osso);
+  display:flex;flex-direction:column;justify-content:flex-end;gap:.35rem;
+  transition:border-color .35s,box-shadow .35s,transform .35s;overflow:hidden;
+}
+.comodo .num{font-family:var(--display);font-size:.75rem;letter-spacing:.2em;color:var(--cinza)}
+.comodo .nome{font-family:var(--display);font-size:1.05rem;letter-spacing:.06em}
+.comodo .estado{font-size:.82rem;color:var(--cinza);font-style:italic}
+.comodo .fechadura{
+  position:absolute;top:14px;right:14px;width:22px;height:22px;opacity:.75;
+}
+.comodo:hover{transform:translateY(-2px)}
+.comodo[data-aberto="true"]{border-color:var(--cor);position:relative;z-index:6;
+  box-shadow:0 0 22px color-mix(in srgb,var(--cor) 22%,transparent), inset 0 0 40px color-mix(in srgb,var(--cor) 8%,transparent)}
+.comodo[data-aberto="true"] .num{color:color-mix(in srgb,var(--cor) 60%,var(--cinza))}
+.comodo[data-aberto="true"] .nome{color:var(--cor);text-shadow:0 0 12px color-mix(in srgb,var(--cor) 55%,transparent)}
+.comodo[data-aberto="true"]:hover{box-shadow:0 0 26px color-mix(in srgb,var(--cor) 30%,transparent)}
+.comodo[data-aberto="false"]{color:var(--cinza)}
+.comodo[data-aberto="false"]:hover{border-color:#3a3646}
+#c-quarto{grid-area:quarto;--cor:var(--r1)}
+#c-escritorio{grid-area:escritorio;--cor:var(--r2)}
+#c-sala{grid-area:sala;--cor:var(--r3)}
+#c-corredor{grid-area:corredor;--cor:var(--r4)}
+#c-hall{grid-area:hall;--cor:var(--r5)}
+#c-jardim{grid-area:jardim;--cor:var(--r6);min-height:130px}
+
+/* lanterna: máscara de escuridão sobre o mapa */
+#lanterna{
+  position:absolute;inset:0;pointer-events:none;z-index:5;border-radius:6px;
+  background:radial-gradient(circle 190px at var(--mx,50%) var(--my,40%),transparent 0%,rgba(6,6,9,.86) 62%);
+  transition:opacity .5s;
+}
+.casa-mapa-wrap{position:relative;max-width:860px;margin:0 auto}
+.casa-rodape{max-width:860px;margin:1.6rem auto 0;display:flex;align-items:center;justify-content:space-between;gap:1rem;flex-wrap:wrap}
+#modo-autora{
+  background:none;border:1px dashed #3a3646;color:var(--cinza);font-size:.78rem;
+  padding:.45rem .9rem;border-radius:2px;letter-spacing:.06em;
+}
+#modo-autora:hover{color:var(--osso);border-color:var(--cinza)}
+
+/* vela de progresso */
+.vela-progresso{display:flex;align-items:flex-end;gap:.8rem}
+.vela-svg{width:34px;height:64px}
+.vela-legenda{font-size:.82rem;color:var(--cinza);font-style:italic}
+.chama{transform-origin:50% 100%;transform:scale(var(--chama,0));transition:transform 1.2s ease;animation:dancachama 1.8s ease-in-out infinite}
+@keyframes dancachama{0%,100%{transform:scale(var(--chama,0)) rotate(-2deg)}50%{transform:scale(calc(var(--chama,0)*1.08)) rotate(2.5deg)}}
+
+/* ---------- modal do cômodo ---------- */
+#veu{
+  position:fixed;inset:0;background:rgba(4,4,7,.88);z-index:60;display:none;
+  align-items:center;justify-content:center;padding:1.2rem;
+}
+#veu.visivel{display:flex}
+.quarto-modal{
+  width:min(680px,100%);max-height:92vh;overflow-y:auto;background:#0e0d13;
+  border:1px solid var(--cor,#2e2836);border-radius:6px;padding:2.2rem 2rem 2.4rem;position:relative;
+  box-shadow:0 0 60px color-mix(in srgb,var(--cor,#000) 22%,transparent);
+}
+.quarto-modal .fechar{
+  position:absolute;top:12px;right:14px;background:none;border:none;color:var(--cinza);
+  font-size:1.5rem;line-height:1;padding:.3rem .5rem;
+}
+.quarto-modal .fechar:hover{color:var(--osso)}
+.quarto-modal .eyebrow{font-family:var(--display);font-size:.78rem;letter-spacing:.24em;color:var(--cor);text-shadow:0 0 10px color-mix(in srgb,var(--cor) 50%,transparent)}
+.quarto-modal h3{font-family:var(--display);font-weight:400;font-size:1.7rem;letter-spacing:.06em;margin:.3rem 0 1.2rem;text-shadow:0 0 14px color-mix(in srgb,var(--cor) 30%,transparent)}
+.objeto-palco{
+  height:150px;display:flex;align-items:center;justify-content:center;margin-bottom:1.4rem;
+  background:radial-gradient(ellipse at center,color-mix(in srgb,var(--cor) 10%,transparent),transparent 70%);
+  border-radius:4px;
+}
+.objeto-palco svg{height:110px;filter:drop-shadow(0 0 14px color-mix(in srgb,var(--cor) 35%,transparent))}
+.objeto-legenda{font-family:var(--fell);font-style:italic;color:var(--cinza);text-align:center;
+  font-size:.98rem;margin:-.4rem 0 1.3rem;letter-spacing:.01em}
+.sussurro{
+  font-family:var(--fell);font-style:italic;color:var(--cinza);text-align:center;font-size:1.05rem;
+  margin-bottom:1.5rem;min-height:1.6em;
+}
+.sussurro span{opacity:0;animation:sussurra 3.4s ease forwards}
+@keyframes sussurra{0%{opacity:0}25%{opacity:.9}80%{opacity:.9}100%{opacity:.45}}
+.memoria{border-left:2px solid var(--cor);padding:.2rem 0 .2rem 1.1rem;margin-bottom:1.4rem}
+.memoria .rotulo{font-family:var(--display);font-size:.72rem;letter-spacing:.22em;color:var(--cor);display:block;margin-bottom:.35rem}
+.memoria p{font-size:1.02rem;color:var(--osso)}
+.trava-form{margin-top:.6rem}
+.trava-form label{display:block;font-size:.9rem;color:var(--cinza);font-style:italic;margin-bottom:.55rem}
+.linha-chave{display:flex;gap:.6rem;flex-wrap:wrap}
+.linha-chave input{
+  flex:1;min-width:200px;background:#08080c;border:1px solid #2e2836;color:var(--osso);
+  font-family:var(--serif);font-size:1rem;padding:.65rem .9rem;border-radius:2px;letter-spacing:.06em;
+}
+.linha-chave input:focus{border-color:var(--cor);outline:none}
+.linha-chave button{
+  background:none;border:1px solid var(--cor);color:var(--cor);font-family:var(--display);
+  letter-spacing:.14em;font-size:.85rem;padding:.6rem 1.3rem;border-radius:2px;transition:background .3s,color .3s;
+}
+.linha-chave button:hover{background:var(--cor);color:var(--noite)}
+.feedback{font-size:.88rem;font-style:italic;margin-top:.6rem;min-height:1.3em}
+.feedback.erro{color:#c0392b}
+.feedback.ok{color:var(--cor)}
+.tremido{animation:treme .4s ease}
+@keyframes treme{0%,100%{transform:translateX(0)}25%{transform:translateX(-6px)}50%{transform:translateX(5px)}75%{transform:translateX(-3px)}}
+
+/* ---------- ritual final ---------- */
+#ritual{display:none;max-width:640px;margin:0 auto;padding:3.5rem 1.2rem 5rem;text-align:center}
+#ritual.visivel{display:block}
+#ritual h2{font-family:var(--display);font-weight:400;letter-spacing:.14em;font-size:1.6rem;margin-bottom:.8rem}
+#ritual p{color:var(--cinza);font-style:italic;margin-bottom:1.4rem}
+#ritual .linha-chave{justify-content:center}
+#ritual .linha-chave input{max-width:260px;text-align:center;letter-spacing:.4em;text-transform:uppercase}
+#ritual{--cor:var(--vela)}
+
+/* cena final */
+#final{
+  position:fixed;inset:0;z-index:90;background:var(--noite);display:none;
+  flex-direction:column;align-items:center;justify-content:center;text-align:center;padding:2rem;gap:1.4rem;
+}
+#final.visivel{display:flex}
+#final .vela-grande{width:90px;height:190px}
+#final h2{font-family:var(--display);font-weight:400;letter-spacing:.16em;font-size:clamp(1.3rem,4vw,2rem);opacity:0;animation:surge 2.5s 2.2s ease forwards}
+#final p{font-family:var(--fell);font-style:italic;color:var(--cinza);max-width:44ch;opacity:0;animation:surge 2.5s 3.2s ease forwards}
+#final a{
+  color:var(--vela);text-decoration:none;border:1px solid var(--vela);padding:.7rem 1.6rem;border-radius:2px;
+  font-family:var(--display);letter-spacing:.14em;font-size:.9rem;opacity:0;animation:surge 2.5s 4.2s ease forwards;
+  transition:background .3s,color .3s;
+}
+#final a:hover{background:var(--vela);color:var(--noite)}
+#final .nota-final{font-size:.82rem;opacity:0;animation:surge 2.5s 5s ease forwards}
+@keyframes surge{to{opacity:1}}
+#final .chama-final{transform-origin:50% 100%;transform:scale(0);animation:acende 2.4s .6s cubic-bezier(.3,1.4,.5,1) forwards,dancachama 1.8s 3s ease-in-out infinite}
+@keyframes acende{0%{transform:scale(0)}60%{transform:scale(1.25)}100%{transform:scale(1)}}
+#final .halo{
+  position:absolute;inset:0;pointer-events:none;
+  background:radial-gradient(circle at 50% 46%,rgba(240,168,72,.14),transparent 55%);
+  opacity:0;animation:surge 3s 1.4s ease forwards;
+}
+
+@media (max-width:640px){
+  .casa-mapa{grid-template-columns:1fr 1fr;grid-template-areas:
+    "telhado telhado" "quarto corredor" "sala escritorio" "hall relogio" "jardim jardim"}
+  #lanterna{background:radial-gradient(circle 150px at var(--mx,50%) var(--my,30%),transparent 0%,rgba(6,6,9,.82) 62%)}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01s !important;transition-duration:.01s !important}
+  #lanterna{display:none}
+}
+</style>
+</head>
+<body>
+
+<!-- ==================== ENTRADA ==================== -->
+<section id="porta-cena" aria-label="Entrada">
+  <h1>A Casa do Kiddo</h1>
+  <p class="vinheta">Você leu o livro. Você decifrou as dicas.<br>Agora… venha ver atrás da porta.</p>
+  <div class="porta-wrap" id="porta-wrap" aria-hidden="true">
+    <div class="porta"></div>
+    <div class="porta-luz"></div>
+  </div>
+  <button id="entrar">Abrir a porta</button>
+  <p class="aviso-livro">Este lugar é uma extensão do livro <em>Venha Ver Atrás da Porta</em>, de Amanda Reznor.
+  Nada aqui é necessário para a história — mas cada cômodo se abre com uma dica decifrada nas páginas.</p>
+</section>
+
+<!-- ==================== A CASA ==================== -->
+<section id="casa" aria-label="Mapa da casa">
+  <div class="casa-topo">
+    <h2>Está tudo escuro aqui.</h2>
+    <p>Passe a sua luz pela casa. Seis cômodos estão trancados — cada um se abre com uma dica do livro,
+    escrita do jeitinho que você decifrou. Abra todos e a última porta aparecerá.</p>
+  </div>
+  <div class="casa-mapa-wrap">
+    <div class="casa-mapa" id="mapa">
+      <div class="telhado" aria-hidden="true"></div>
+      <button class="comodo" id="c-quarto" data-sala="quarto" data-aberto="false"></button>
+      <button class="comodo" id="c-corredor" data-sala="corredor" data-aberto="false"></button>
+      <button class="comodo" id="c-sala" data-sala="sala" data-aberto="false"></button>
+      <button class="comodo" id="c-escritorio" data-sala="escritorio" data-aberto="false"></button>
+      <button class="comodo" id="c-hall" data-sala="hall" data-aberto="false"></button>
+      <button class="comodo" id="c-relogio" data-sala="relogio" data-aberto="false" style="grid-area:relogio;--cor:var(--r5)"></button>
+      <button class="comodo" id="c-jardim" data-sala="jardim" data-aberto="false"></button>
+      <div id="lanterna" aria-hidden="true"></div>
+    </div>
+    <div class="casa-rodape">
+      <div class="vela-progresso" aria-live="polite">
+        <svg class="vela-svg" viewBox="0 0 34 64" aria-hidden="true">
+          <rect x="12" y="28" width="10" height="30" rx="2" fill="#d8d2c0"/>
+          <rect x="16.4" y="22" width="1.2" height="7" fill="#555"/>
+          <g class="chama" id="chama-prog">
+            <ellipse cx="17" cy="17" rx="5.5" ry="9" fill="#f0a848"/>
+            <ellipse cx="17" cy="19" rx="2.6" ry="4.6" fill="#fbe3b0"/>
+          </g>
+        </svg>
+        <span class="vela-legenda" id="legenda-vela">A vela ainda está apagada. Cômodos abertos: 0 de 6.</span>
+      </div>
+      <button id="modo-autora" title="Atalho de revisão: abre todos os cômodos">modo autora — abrir tudo (revisão)</button>
+    </div>
+  </div>
+</section>
+
+<!-- ==================== RITUAL FINAL ==================== -->
+<section id="ritual" aria-label="Ritual final">
+  <h2>A última porta</h2>
+  <p>Seis cômodos abertos. Seis letras em quadradinhos.<br>Você sabe a palavra. Diga por ele.</p>
+  <div class="linha-chave">
+    <input type="text" id="chave-final" maxlength="10" autocomplete="off" aria-label="Palavra final">
+    <button id="botao-final">Dizer</button>
+  </div>
+  <p class="feedback" id="fb-final"></p>
+</section>
+
+<!-- ==================== MODAL ==================== -->
+<div id="veu" role="dialog" aria-modal="true">
+  <div class="quarto-modal" id="modal">
+    <button class="fechar" id="fechar-modal" aria-label="Fechar">×</button>
+    <span class="eyebrow" id="m-eyebrow"></span>
+    <h3 id="m-titulo"></h3>
+    <div class="objeto-palco" id="m-objeto"></div>
+    <p class="sussurro" id="m-sussurro"></p>
+    <div id="m-corpo"></div>
+  </div>
+</div>
+
+<!-- ==================== CENA FINAL ==================== -->
+<div id="final">
+  <div class="halo" aria-hidden="true"></div>
+  <svg class="vela-grande" viewBox="0 0 90 190" aria-hidden="true">
+    <rect x="30" y="80" width="30" height="95" rx="4" fill="#d8d2c0"/>
+    <rect x="43.5" y="62" width="3" height="20" fill="#555"/>
+    <g class="chama-final">
+      <ellipse cx="45" cy="46" rx="15" ry="26" fill="#f0a848"/>
+      <ellipse cx="45" cy="52" rx="7" ry="13" fill="#fbe3b0"/>
+    </g>
+  </svg>
+  <h2>Você acendeu a última vela.</h2>
+  <p>Não para prender — para dizer adeus com carinho.<br>O Kiddo está livre. E ele não vai esquecer de você.</p>
+  <a href="https://revstudio.itch.io/bedtime-fright" target="_blank" rel="noopener">Conheça o jogo Bedtime Fright</a>
+  <p class="nota-final">Amanda Reznor · REV Studio · O livro conta a história completa — o jogo é outro jeito de vivê-la.</p>
+</div>
+
+<script>
+/* ============ dados dos cômodos ============ */
+const SALAS = {
+  quarto:{
+    num:'I', cor:'var(--r1)', nome:'O Quarto do Kiddo',
+    chave:'ELAVEMPARATODOS', pista:'A primeira dica que você decifrou (ela vem para todos).',
+    sussurro:'O perigo está em toda parte!',
+    memoriaTitulo:'Fragmento de memória · A Pernuda',
+    memoria:'Foi o papai quem trouxe a aranha de plástico, escondida no bolso do casaco. “Se você cuidar de uma aranha de mentira, as de verdade vão ter ciúme e ir embora.” Kiddo deu a ela o nome de Pernuda e, por muitas noites, funcionou.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.4" fill="none" stroke-linecap="round">
+      <ellipse cx="60" cy="58" rx="15" ry="18" fill="#0e0d13"/>
+      <circle cx="60" cy="40" r="8" fill="#0e0d13"/>
+      <path d="M46 50 Q26 42 18 24"/><path d="M46 58 Q24 58 12 50"/><path d="M46 66 Q26 74 20 90"/><path d="M50 72 Q40 88 42 100"/>
+      <path d="M74 50 Q94 42 102 24"/><path d="M74 58 Q96 58 108 50"/><path d="M74 66 Q94 74 100 90"/><path d="M70 72 Q80 88 78 100"/>
+      <path d="M52 60 L54 62 M66 60 L64 62" stroke="#c0392b" stroke-width="3"/>
+    </g><text x="60" y="106" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">costura à mostra: é de plástico</text></svg>`
+  },
+  escritorio:{
+    num:'II', cor:'var(--r2)', nome:'O Escritório do Pai',
+    chave:'PRESONOMEIODOCAMINHO', pista:'A dica das aranhas (não está lá nem cá).',
+    sussurro:'Estou chegando mais perto!',
+    memoriaTitulo:'Fragmento de memória · O Ursinho',
+    memoria:'O ursinho pardo já foi macio. Chegou num aniversário, dentro de uma caixa maior que o Kiddo. “Abrace forte, ele o protegerá”, disse o papai — e por muito tempo o ursinho cumpriu a promessa, guardando a cama do lado de dentro do sono.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.4" fill="#0e0d13" stroke-linecap="round">
+      <circle cx="42" cy="30" r="9"/><circle cx="78" cy="30" r="9"/>
+      <circle cx="60" cy="44" r="20"/>
+      <ellipse cx="60" cy="80" rx="24" ry="22"/>
+      <ellipse cx="34" cy="78" rx="8" ry="13" transform="rotate(20 34 78)"/>
+      <ellipse cx="86" cy="78" rx="8" ry="13" transform="rotate(-20 86 78)"/>
+      <path d="M54 42 l3 3 M66 42 l-3 3" stroke-width="2"/>
+      <path d="M56 52 q4 3 8 0" fill="none"/>
+      <path d="M68 70 l10 8 M70 82 l8 -3" stroke="#d35400" stroke-width="1.6"/>
+    </g><text x="60" y="106" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">um pouco áspero, ultimamente</text></svg>`
+  },
+  sala:{
+    num:'III', cor:'var(--r3)', nome:'A Sala do Quadro',
+    chave:'ANOITEEETERNA', pista:'A dica da asa espelhada (o ciclo é eterno).',
+    sussurro:'Pode a borboleta voltar a voar?',
+    memoriaTitulo:'Fragmento de memória · A Borboleta',
+    memoria:'A borboleta azul pousou no muro do jardim numa tarde de domingo. Kiddo quis guardá-la para sempre — foi ele mesmo quem a prendeu no quadro, com um alfinete emprestado da mamãe. Só depois entendeu que guardar para sempre e deixar viver não são a mesma coisa.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.2" fill="#0e0d13" stroke-linecap="round">
+      <rect x="18" y="10" width="84" height="84" rx="3" fill="none"/>
+      <rect x="24" y="16" width="72" height="72" rx="2" fill="none" stroke-width="1.2"/>
+      <path d="M60 36 C40 20 26 34 34 50 C40 62 54 60 60 52 Z"/>
+      <path d="M60 36 C80 20 94 34 86 50 C80 62 66 60 60 52 Z"/>
+      <path d="M60 52 C46 58 42 74 52 78 C58 80 60 68 60 62 Z"/>
+      <path d="M60 52 C74 58 78 74 68 78 C62 80 60 68 60 62 Z"/>
+      <line x1="60" y1="32" x2="60" y2="66"/>
+      <circle cx="44" cy="42" r="4" fill="#c9a227" opacity=".85"/>
+      <circle cx="76" cy="42" r="4" fill="#c9a227" opacity=".85"/>
+      <line x1="60" y1="26" x2="60" y2="40" stroke="#8d8a80" stroke-width="1.6"/>
+    </g><text x="60" y="106" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">as asas parecem grandes olhos</text></svg>`
+  },
+  corredor:{
+    num:'IV', cor:'var(--r4)', nome:'O Corredor de Cima',
+    chave:'OMEDOCEGAAMENTE', pista:'A dica das doze badaladas (o medo pode cegar).',
+    sussurro:'A coruja viu a borboleta devorada.',
+    memoriaTitulo:'Fragmento de memória · O Cuco',
+    memoria:'O relógio do corredor era um cuco antigo, herança do vovô. Toda meia-noite, o passarinho de madeira saía para cantar — e Kiddo, escondido atrás da porta, jurava que ele piscava para ele antes de voltar. “Você nem é uma coruja”, ria baixinho. “É só um velho cuco.”',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.2" fill="#0e0d13" stroke-linecap="round">
+      <rect x="38" y="8" width="44" height="70" rx="4" fill="none"/>
+      <circle cx="60" cy="34" r="17" fill="none"/>
+      <circle cx="53" cy="30" r="4.5" fill="none" stroke="#1e8449"/>
+      <circle cx="67" cy="30" r="4.5" fill="none" stroke="#1e8449"/>
+      <circle cx="53" cy="30" r="1.4" fill="#1e8449" stroke="none"/>
+      <circle cx="67" cy="30" r="1.4" fill="#1e8449" stroke="none"/>
+      <path d="M57 38 l3 3 3 -3" fill="none"/>
+      <line x1="60" y1="78" x2="60" y2="92"/>
+      <circle cx="60" cy="96" r="5" fill="#c9a227" stroke="none" opacity=".8"/>
+    </g><text x="60" y="108" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">sempre meia-noite, até você fazer o tempo andar</text></svg>`
+  },
+  hall:{
+    num:'V', cor:'var(--r5)', nome:'O Hall da Entrada',
+    chave:'ASMEMORIASDOEMLA', pista:'A dica da corrente dos objetos (lá as memórias machucam).',
+    sussurro:'O sopro do dragão derrete a vela.',
+    memoriaTitulo:'Fragmento de memória · O Dragão e a Vela',
+    memoria:'Na noite em que faltou luz, a mamãe acendeu uma vela e fez sombras na parede com as mãos. O dragão de brinquedo virou um dragão de verdade, gigante e bobo, soltando fogo de mentira pelo corredor. Kiddo dormiu rindo. Foi a última vez que o escuro pareceu um amigo.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.2" fill="#0e0d13" stroke-linecap="round">
+      <path d="M30 82 q-8 -18 6 -30 q-2 -14 12 -18 q10 -12 24 -6 q14 -4 18 10 q10 8 2 20 l-8 6" fill="none"/>
+      <circle cx="78" cy="42" r="2" fill="#2471a3" stroke="none"/>
+      <path d="M88 46 q10 2 14 -4" fill="none" stroke="#2471a3"/>
+      <path d="M36 54 l-8 -10 l12 2 Z"/><path d="M50 40 l-6 -12 l12 4 Z"/>
+      <path d="M30 82 q16 8 34 4" fill="none"/>
+      <rect x="86" y="70" width="10" height="22" rx="2" fill="#d8d2c0" stroke="none"/>
+      <g><ellipse cx="91" cy="62" rx="4" ry="7" fill="#f0a848" stroke="none"/></g>
+    </g><text x="60" y="106" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">um falso guardião — e uma chama pequena</text></svg>`
+  },
+  relogio:{
+    num:'V·b', cor:'var(--r5)', nome:'A Sala do Relógio',
+    chave:'ASMEMORIASDOEMLA', pista:'Abre junto com o Hall — mesma dica da corrente.',
+    sussurro:'O tempo não passa para os condenados.',
+    memoriaTitulo:'Fragmento de memória · O Pêndulo',
+    memoria:'O pêndulo dourado hipnotizava o Kiddo nas tardes de chuva. Ele ficava sentado no primeiro degrau da escada, contando: um, dois, um, dois. A mamãe dizia que o tempo passa mais devagar para quem presta atenção nele. Ela tinha razão — mas não do jeito que imaginava.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.2" fill="#0e0d13" stroke-linecap="round">
+      <rect x="42" y="6" width="36" height="92" rx="4" fill="none"/>
+      <circle cx="60" cy="26" r="13" fill="none"/>
+      <line x1="60" y1="26" x2="60" y2="17"/><line x1="60" y1="26" x2="66" y2="26"/>
+      <line x1="60" y1="42" x2="60" y2="74"/>
+      <circle cx="60" cy="80" r="6" fill="#c9a227" stroke="none" opacity=".85"/>
+    </g><text x="60" y="108" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">tique-taque… tique-taque…</text></svg>`
+  },
+  jardim:{
+    num:'VI', cor:'var(--r6)', nome:'O Jardim-Labirinto',
+    chave:'OMONSTROEASUASOMBRA', pista:'A última dica do livro (o labirinto de fogo).',
+    sussurro:'O monstro é a sua sombra.',
+    memoriaTitulo:'Fragmento de memória · Esconde-esconde',
+    memoria:'O jardim era o melhor lugar do mundo para se esconder. Kiddo conhecia cada curva das trepadeiras, cada buraco no muro. O papai sempre demorava de propósito para achá-lo, resmungando “onde está esse menino?” bem alto. No jardim, ser encontrado era a melhor parte.',
+    objeto:`<svg viewBox="0 0 120 110"><g stroke="#e6e1d3" stroke-width="2.4" fill="none" stroke-linecap="square">
+      <path d="M14 96 V20 H106 V96 H70 V52 H48 V78"/>
+      <path d="M30 96 V36 H90 V80 H62"/>
+      <circle cx="22" cy="90" r="3.4" fill="#5b3a9b" stroke="none"/>
+      <circle cx="98" cy="88" r="4.5" fill="none" stroke="#8d8a80" stroke-width="1.6"/>
+      <path d="M52 20 q4 -8 8 0" stroke="#f0a848"/>
+    </g><text x="60" y="108" fill="#8d8a80" font-size="8" text-anchor="middle" font-style="italic">a saída passa por dentro do fogo</text></svg>`
+  }
+};
+const ORDEM = ['quarto','escritorio','sala','corredor','hall','jardim'];
+const STORAGE_KEY = 'casa-do-kiddo-v1';
+function loadAbertas(){
+  try{
+    const raw = localStorage.getItem(STORAGE_KEY);
+    if(!raw) return new Set();
+    const arr = JSON.parse(raw);
+    return new Set(Array.isArray(arr)?arr:[]);
+  }catch(e){ return new Set(); }
+}
+function saveAbertas(){
+  try{ localStorage.setItem(STORAGE_KEY, JSON.stringify([...abertas])); }catch(e){}
+}
+const abertas = loadAbertas(); // progresso entre visitas
+let salaAtual = null;
+
+/* ============ util ============ */
+const norm = s => s.normalize('NFD').replace(/[\u0300-\u036f]/g,'').replace(/[^a-zA-Z]/g,'').toUpperCase();
+const $ = id => document.getElementById(id);
+
+/* ============ entrada ============ */
+$('entrar').addEventListener('click', () => {
+  $('porta-wrap').classList.add('aberta');
+  setTimeout(()=>{
+    $('porta-cena').style.display='none';
+    $('casa').classList.add('visivel');
+    window.scrollTo(0,0);
+  }, 1500);
+});
+
+/* ============ lanterna ============ */
+const mapa = $('mapa');
+mapa.addEventListener('pointermove', e=>{
+  const r = mapa.getBoundingClientRect();
+  mapa.style.setProperty('--mx', ((e.clientX-r.left)/r.width*100)+'%');
+  mapa.style.setProperty('--my', ((e.clientY-r.top)/r.height*100)+'%');
+});
+
+/* ============ render dos cômodos ============ */
+function fechaduraSVG(cor){
+  return `<svg class="fechadura" viewBox="0 0 22 22"><g fill="none" stroke="${cor}" stroke-width="1.8">
+    <rect x="4" y="9" width="14" height="10" rx="2"/><path d="M7 9 V6.5 a4 4 0 0 1 8 0 V9"/>
+    <circle cx="11" cy="13.5" r="1.6" fill="${cor}" stroke="none"/></g></svg>`;
+}
+function chaveAbertaSVG(cor){
+  return `<svg class="fechadura" viewBox="0 0 22 22"><g fill="none" stroke="${cor}" stroke-width="1.8">
+    <rect x="4" y="9" width="14" height="10" rx="2"/><path d="M15 9 V6.5 a4 4 0 0 0 -8 0"/>
+    </g></svg>`;
+}
+function renderComodos(){
+  document.querySelectorAll('.comodo').forEach(btn=>{
+    const id = btn.dataset.sala;
+    const s = SALAS[id];
+    const aberto = abertas.has(id);
+    btn.dataset.aberto = aberto;
+    btn.innerHTML = `
+      ${aberto ? chaveAbertaSVG('currentColor') : fechadura('') }
+      <span class="num">${s.num}</span>
+      <span class="nome">${aberto ? s.nome : '? ? ?'}</span>
+      <span class="estado">${aberto ? 'aberto — entre quando quiser' : 'trancado'}</span>`;
+    function fechadura(){ return aberto ? '' : fechaduraSVG('#8d8a80'); }
+  });
+  const n = ['quarto','escritorio','sala','corredor','hall','jardim'].filter(x=>abertas.has(x)).length;
+  document.documentElement.style.setProperty('--chama', Math.min(1, n/6*0.9 + (n>0?0.1:0)));
+  $('chama-prog').style.setProperty('--chama', n===0 ? 0 : (0.25 + n/6*0.75));
+  $('legenda-vela').textContent = n===0
+    ? 'A vela ainda está apagada. Cômodos abertos: 0 de 6.'
+    : n<6 ? `A chama cresce… Cômodos abertos: ${n} de 6.`
+    : 'A vela está quase viva. A última porta apareceu lá embaixo.';
+  $('ritual').classList.toggle('visivel', n===6);
+  if(n===6) $('lanterna').style.opacity='0';
+}
+
+/* ============ modal ============ */
+function abrirModal(id){
+  salaAtual = id;
+  const existente = document.getElementById('m-legenda');
+  if(existente) existente.remove();
+  const s = SALAS[id];
+  const modal = $('modal');
+  modal.style.setProperty('--cor', s.cor);
+  $('m-eyebrow').textContent = `Cômodo ${s.num}`;
+  const aberto = abertas.has(id);
+  $('m-titulo').textContent = aberto ? s.nome : 'Trancado';
+  // separa a legenda (que ficava dentro do SVG, em fonte minúscula) do desenho
+  let objetoSVG = s.objeto, legenda = '';
+  const mLeg = s.objeto.match(/<text[^>]*>(.*?)<\/text>/s);
+  if(mLeg){ legenda = mLeg[1]; objetoSVG = s.objeto.replace(/<text[^>]*>.*?<\/text>/s,''); }
+  $('m-objeto').innerHTML = aberto ? objetoSVG :
+    `<svg viewBox="0 0 120 110"><g fill="none" stroke="#4a4656" stroke-width="2.6">
+      <rect x="38" y="46" width="44" height="36" rx="5"/><path d="M46 46 V36 a14 14 0 0 1 28 0 V46"/>
+      <circle cx="60" cy="62" r="4.5" fill="#4a4656"/><line x1="60" y1="65" x2="60" y2="73"/></g></svg>`;
+  if(aberto){
+    $('m-objeto').insertAdjacentHTML('afterend', legenda ? `<p class="objeto-legenda" id="m-legenda">${legenda}</p>` : '');
+    $('m-sussurro').innerHTML = `<span>❝ ${s.sussurro} ❞</span>`;
+    $('m-corpo').innerHTML = `
+      <div class="memoria"><span class="rotulo">${s.memoriaTitulo}</span><p>${s.memoria}</p></div>
+      <p style="font-size:.85rem;color:var(--cinza);font-style:italic">Este fragmento não existe no livro — é um presente por ter chegado até aqui.</p>`;
+  } else {
+    $('m-sussurro').innerHTML = `<span>❝ …quem é você? o que sabe sobre mim? ❞</span>`;
+    $('m-corpo').innerHTML = `
+      <div class="trava-form">
+        <label for="input-chave">${s.pista} Escreva a dica decifrada:</label>
+        <div class="linha-chave">
+          <input type="text" id="input-chave" autocomplete="off" spellcheck="false" aria-label="Dica do livro">
+          <button id="tentar">Abrir</button>
+        </div>
+        <p class="feedback" id="fb"></p>
+      </div>`;
+    $('tentar').addEventListener('click', tentarChave);
+    $('input-chave').addEventListener('keydown', e=>{ if(e.key==='Enter') tentarChave(); });
+    setTimeout(()=>$('input-chave').focus(), 80);
+  }
+  $('veu').classList.add('visivel');
+}
+function tentarChave(){
+  const s = SALAS[salaAtual];
+  const val = norm($('input-chave').value);
+  const fb = $('fb');
+  if(val === s.chave){
+    abertas.add(salaAtual);
+    if(salaAtual==='hall') abertas.add('relogio');
+    if(salaAtual==='relogio') abertas.add('hall');
+    saveAbertas();
+    fb.className='feedback ok';
+    fb.textContent='A fechadura range… e cede.';
+    setTimeout(()=>{ renderComodos(); abrirModal(salaAtual); }, 750);
+  } else {
+    fb.className='feedback erro';
+    fb.textContent = val.length===0 ? 'O silêncio não abre portas.' : 'A porta não se mexeu. Confira sua dica no livro.';
+    $('modal').classList.remove('tremido'); void $('modal').offsetWidth;
+    $('modal').classList.add('tremido');
+  }
+}
+function fecharModal(){ $('veu').classList.remove('visivel'); salaAtual=null; }
+$('fechar-modal').addEventListener('click', fecharModal);
+$('veu').addEventListener('click', e=>{ if(e.target===$('veu')) fecharModal(); });
+document.addEventListener('keydown', e=>{ if(e.key==='Escape') fecharModal(); });
+document.querySelectorAll('.comodo').forEach(btn=>btn.addEventListener('click', ()=>abrirModal(btn.dataset.sala)));
+
+/* ============ ritual final ============ */
+function tentarFinal(){
+  const val = norm($('chave-final').value);
+  const fb = $('fb-final');
+  if(val==='ACENDA'){
+    $('final').classList.add('visivel');
+    document.body.style.overflow='hidden';
+  } else {
+    fb.className='feedback erro';
+    fb.textContent='Ainda não. Junte as seis letras dos quadradinhos, na ordem dos desafios.';
+  }
+}
+$('botao-final').addEventListener('click', tentarFinal);
+$('chave-final').addEventListener('keydown', e=>{ if(e.key==='Enter') tentarFinal(); });
+
+/* ============ modo autora (revisão) ============ */
+$('modo-autora').addEventListener('click', ()=>{
+  ORDEM.forEach(id=>abertas.add(id)); abertas.add('relogio');
+  saveAbertas();
+  renderComodos();
+});
+
+renderComodos();
+</script>
+</body>
+</html>

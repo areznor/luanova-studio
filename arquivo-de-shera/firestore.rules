@@ -1,0 +1,71 @@
+rules_version = '2';
+
+// Sala de Leitura (O Arquivo de Shera) — Firestore security rules.
+// Paste into Firebase console → Firestore Database → Rules, then Publish.
+// Anyone can read; signed-in readers can post; authors delete their own posts;
+// admins (a document at admins/{uid}) can delete anything.
+service cloud.firestore {
+  match /databases/{database}/documents {
+
+    function signedIn() {
+      return request.auth != null;
+    }
+
+    function isAdmin() {
+      return signedIn() && exists(/databases/$(database)/documents/admins/$(request.auth.uid));
+    }
+
+    function validText(s, minLen, maxLen) {
+      return s is string && s.size() >= minLen && s.size() <= maxLen;
+    }
+
+    function validAuthor(d) {
+      return d.authorUid == request.auth.uid && validText(d.authorName, 1, 60);
+    }
+
+    match /admins/{uid} {
+      allow read: if signedIn() && request.auth.uid == uid;
+      allow write: if false;
+    }
+
+    match /threads/{threadId} {
+      allow read: if true;
+
+      allow create: if signedIn()
+        && request.resource.data.keys().hasOnly(['title', 'body', 'room', 'spoiler', 'authorUid', 'authorName', 'createdAt', 'lastActivity', 'replyCount'])
+        && validText(request.resource.data.title, 1, 120)
+        && validText(request.resource.data.body, 1, 4000)
+        && request.resource.data.room in ['geral', 'v1', 'v2', 'v3', 'v4', 'v5']
+        && request.resource.data.spoiler is bool
+        && validAuthor(request.resource.data)
+        && request.resource.data.createdAt == request.time
+        && request.resource.data.lastActivity == request.time
+        && request.resource.data.replyCount == 0;
+
+      // A reply bumps the counter by exactly one and refreshes lastActivity.
+      allow update: if isAdmin() || (signedIn()
+        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replyCount', 'lastActivity'])
+        && request.resource.data.replyCount == resource.data.replyCount + 1
+        && request.resource.data.lastActivity == request.time);
+
+      allow delete: if isAdmin()
+        || (signedIn() && resource.data.authorUid == request.auth.uid && resource.data.replyCount == 0);
+
+      match /posts/{postId} {
+        allow read: if true;
+
+        allow create: if signedIn()
+          && exists(/databases/$(database)/documents/threads/$(threadId))
+          && request.resource.data.keys().hasOnly(['body', 'spoiler', 'authorUid', 'authorName', 'createdAt'])
+          && validText(request.resource.data.body, 1, 4000)
+          && request.resource.data.spoiler is bool
+          && validAuthor(request.resource.data)
+          && request.resource.data.createdAt == request.time;
+
+        allow update: if false;
+
+        allow delete: if isAdmin() || (signedIn() && resource.data.authorUid == request.auth.uid);
+      }
+    }
+  }
+}

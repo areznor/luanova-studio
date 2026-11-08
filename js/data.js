@@ -236,6 +236,7 @@ window.LUA_NOVA = {
       year: null,
       cover: "assets/covers/placeholder-casa-do-kiddo.png",
       provisional: true,
+      interactUrl: "casa-do-kiddo/",
       authorIds: ["amanda-reznor"],
       title: {
         pt: "Venha ver atrás da porta",
@@ -250,8 +251,8 @@ window.LUA_NOVA = {
         en: "An interactive children's project that invites kids to explore, solve puzzles, and discover what lies behind each door — literature that plays with the reader.",
       },
       details: {
-        pt: "Formato interativo / printables em desenvolvimento.",
-        en: "Interactive / printable format in development.",
+        pt: "A Casa do Kiddo já está aberta: use as dicas decifradas no livro para destrancar os cômodos e acender a última vela. Livro e printables em produção.",
+        en: "Kiddo's House is open: use the clues decoded in the book to unlock the rooms and light the last candle. Book and printables in production.",
       },
     },
     {
@@ -261,6 +262,7 @@ window.LUA_NOVA = {
       year: null,
       cover: "assets/covers/placeholder-jacare-guloso.png",
       provisional: true,
+      interactUrl: "jacare-guloso/",
       authorIds: ["amanda-reznor"],
       title: { pt: "O Jacaré Guloso", en: "The Greedy Alligator" },
       subtitle: {
@@ -272,8 +274,31 @@ window.LUA_NOVA = {
         en: "A children's tale of appetite, humor, and lively scenes — the greedy alligator learns (almost) that wanting everything at once has deliciously comic consequences.",
       },
       details: {
-        pt: "Em produção de ilustrações e texto.",
-        en: "Illustration and text in production.",
+        pt: "Já dá para jogar Resgate dos Bichos, o jogo de dobraduras do livro: as crianças soltam os bichos das jaulas dobrando origami. Livro em produção de ilustrações e texto.",
+        en: "Resgate dos Bichos, the book's origami game, is ready to play: kids free the animals from their cages by folding paper. The book's illustrations and text are in production.",
+      },
+    },
+    {
+      id: "arquivo-de-shera",
+      status: "upcoming",
+      seals: ["interativo", "litfan"],
+      year: null,
+      cover: "assets/covers/arquivo-de-shera.jpg",
+      provisional: false,
+      siteUrl: "arquivo-de-shera/",
+      authorIds: ["amanda-reznor"],
+      title: { pt: "O Arquivo de Shera", en: "Shera's Archive" },
+      subtitle: {
+        pt: "Quatro Noites e Um Segredo",
+        en: "Four Nights and a Secret",
+      },
+      synopsis: {
+        pt: "Na noite em que assina um segundo casamento de conveniência, a rainha viúva Sherazade é presa. Quem vai interrogá-la é o próprio noivo, o único Terceiro Leitor de Kerman, que acaba de ter a memória raspada e não sabe mais nada sobre ela. A cada noite, Shera entrega um dossiê inacabado: risque os nomes impossíveis, descubra as mensagens escondidas nas listas e salve um condenado por vez.",
+        en: "On the night she signs a second marriage of convenience, the widowed queen Sherazade is arrested. Her interrogator is her own groom, Kerman's only Third Reader, whose memory has just been scraped clean of her. Each night, Shera hands over an unfinished dossier: cross out the impossible names, find the messages hidden in the lists, and save one condemned soul at a time.",
+      },
+      details: {
+        pt: "Série de cinco livros-jogos de mistério dedutivo: O Olho de Bronze, O Banquete de Cinzas, A Câmara dos Espelhos, O Jogo da Quimera e A Quinta Noite. Sem dados nem recortes: tudo se resolve riscando, cruzando e pesando.",
+        en: "A five-volume series of deductive mystery gamebooks: The Bronze Eye, Banquet of Ashes, Chamber of Mirrors, Chimera Game, and The Fifth Night. No dice, no cutting: everything is solved by crossing out, cross-checking, and weighing.",
       },
     },
     {
