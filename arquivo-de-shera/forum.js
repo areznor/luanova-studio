@@ -65,6 +65,33 @@ function fmtDate(d) {
   }).format(d);
 }
 
+/* Each topic belongs to one language community. The forum shows the one that
+   matches the page language; languages without a community of their own yet
+   read the English one. */
+const FORUM_LANGS = ["en", "pt"];
+function forumLang() {
+  return FORUM_LANGS.includes(I.lang) ? I.lang : "en";
+}
+
+function langNote() {
+  const other = forumLang() === "pt" ? "en" : "pt";
+  return h(
+    "p",
+    { class: "room-note forum-lang" },
+    I.t("fLangNote") + " ",
+    h("button", {
+      type: "button",
+      class: "link-btn",
+      lang: other === "pt" ? "pt-BR" : "en",
+      text: I.t("fLangSwitch"),
+      onclick: () => {
+        const b = document.querySelector(`.lang button[data-lang="${other}"]`);
+        if (b) b.click();
+      },
+    })
+  );
+}
+
 function roomLabel(room) {
   return room.vol ? `Vol. ${room.vol}` : I.t("roomGeneral");
 }
@@ -116,7 +143,7 @@ function renderRooms() {
   });
   const room = ROOMS.find((r) => r.id === state.room);
   const note = room.vol ? I.t("roomNoteVol", { n: room.vol }) : I.t("roomNoteGeneral");
-  return [tabs, h("p", { class: "room-note", text: note })];
+  return [langNote(), tabs, h("p", { class: "room-note", text: note })];
 }
 
 function loginBox() {
@@ -209,7 +236,8 @@ function deleteButton(onConfirm) {
 }
 
 function renderList() {
-  const list = state.threads.filter((th) => th.room === state.room);
+  const lang = forumLang();
+  const list = state.threads.filter((th) => th.room === state.room && (th.lang || "en") === lang);
   const toolbar = h(
     "div",
     { class: "forum-toolbar" },
@@ -278,6 +306,7 @@ function composeForm({ isReply }) {
             await openThread(state.threadId, { keepScroll: true });
           } else {
             data.room = state.room;
+            data.lang = forumLang();
             const id = await backend.createThread(data);
             await refreshThreads();
             await openThread(id);
@@ -487,7 +516,7 @@ function demoBackend() {
       const t = load().threads.find((x) => x.id === id);
       return t ? t.posts.map(rev) : [];
     },
-    async createThread({ title, body, room, spoiler }) {
+    async createThread({ title, body, room, lang, spoiler }) {
       const db = load();
       const u = me();
       const now = Date.now();
@@ -497,6 +526,7 @@ function demoBackend() {
         title: clean(title, LIMITS.title),
         body: clean(body, LIMITS.body),
         room,
+        lang,
         spoiler: !!spoiler,
         authorUid: u.uid,
         authorName: u.name,
@@ -544,6 +574,8 @@ async function firebaseBackend() {
   const auth = A.getAuth(app);
   const db = F.getFirestore(app);
   const EMAIL_KEY = "shera-forum-email";
+  // Sign-in screens and the email link go out in the reader's language.
+  auth.languageCode = I.lang;
 
   const fromDoc = (d) => {
     const x = d.data();
@@ -572,6 +604,9 @@ async function firebaseBackend() {
 
   return {
     demo: false,
+    setLanguage(lang) {
+      auth.languageCode = lang;
+    },
     init(cb) {
       A.onAuthStateChanged(auth, async (u) => {
         if (!u) return cb(null, false);
@@ -610,11 +645,12 @@ async function firebaseBackend() {
       const q = F.query(F.collection(db, "threads", id, "posts"), F.orderBy("createdAt", "asc"), F.limit(500));
       return (await F.getDocs(q)).docs.map(fromDoc);
     },
-    async createThread({ title, body, room, spoiler }) {
+    async createThread({ title, body, room, lang, spoiler }) {
       const ref = await F.addDoc(F.collection(db, "threads"), {
         title: clean(title, LIMITS.title),
         body: clean(body, LIMITS.body),
         room,
+        lang,
         spoiler: !!spoiler,
         ...author(),
         createdAt: F.serverTimestamp(),
@@ -668,6 +704,9 @@ async function boot() {
 }
 
 I.onChange(() => {
+  if (backend && backend.setLanguage) backend.setLanguage(I.lang);
+  // A topic belongs to one language: switching languages returns to that language's list.
+  if (state.view === "thread" && state.thread && (state.thread.lang || "en") !== forumLang()) state.view = "list";
   if (backend) render();
   else if (root.dataset.msg) renderMessage(root.dataset.msg);
 });

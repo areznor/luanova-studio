@@ -32,10 +32,11 @@ service cloud.firestore {
       allow read: if true;
 
       allow create: if signedIn()
-        && request.resource.data.keys().hasOnly(['title', 'body', 'room', 'spoiler', 'authorUid', 'authorName', 'createdAt', 'lastActivity', 'replyCount'])
+        && request.resource.data.keys().hasOnly(['title', 'body', 'room', 'lang', 'spoiler', 'authorUid', 'authorName', 'createdAt', 'lastActivity', 'replyCount'])
         && validText(request.resource.data.title, 1, 120)
         && validText(request.resource.data.body, 1, 4000)
         && request.resource.data.room in ['geral', 'v1', 'v2', 'v3', 'v4', 'v5']
+        && request.resource.data.lang in ['en', 'pt']
         && request.resource.data.spoiler is bool
         && validAuthor(request.resource.data)
         && request.resource.data.createdAt == request.time

@@ -4,8 +4,8 @@
    While apiKey is empty, the forum shows "opens soon" on the live site
    (and a local demo on localhost). See FORUM-SETUP.md. */
 window.SHERA_FIREBASE = {
-  apiKey: "",
-  authDomain: "",
-  projectId: "",
-  appId: "",
+  apiKey: "AIzaSyBOkRsjEda2qbMMnyAo4NRPW9-xiyqgdh4",
+  authDomain: "sheras-archive-reading-room.firebaseapp.com",
+  projectId: "sheras-archive-reading-room",
+  appId: "1:634260329122:web:9bc3eabca22f43e0467dfb",
 };

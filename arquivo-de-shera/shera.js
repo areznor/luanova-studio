@@ -138,6 +138,11 @@
       pt: "Sala do volume {n}. Spoilers deste volume são permitidos, mas marque-os para quem ainda está lendo.",
       en: "Volume {n} room. Spoilers for this volume are allowed, but mark them for those still reading.",
     },
+    fLangNote: {
+      pt: "Você está na Sala de Leitura em português.",
+      en: "You are in the English Reading Room.",
+    },
+    fLangSwitch: { pt: "Read in English", en: "Ler em português" },
     fTopics: { pt: "Tópicos", en: "Topics" },
     fNewTopic: { pt: "Novo tópico", en: "New topic" },
     fEmpty: { pt: "Nenhum tópico nesta sala ainda. Que tal abrir o primeiro?", en: "No topics in this room yet. Why not start the first?" },
