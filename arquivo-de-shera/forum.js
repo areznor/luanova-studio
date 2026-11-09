@@ -417,7 +417,7 @@ function render() {
   else if (state.view === "thread") parts.push(...renderThread());
   else if (state.view === "compose" && state.user) parts.push(composeForm({ isReply: false }));
   else parts.push(...renderList());
-  root.replaceChildren(...parts);
+  root.replaceChildren(...parts.filter((p) => p != null));
   root.after(rulesNote());
   renderAuth();
 }
@@ -586,7 +586,17 @@ async function firebaseBackend() {
       lastActivity: x.lastActivity ? x.lastActivity.toDate() : null,
     };
   };
-  const author = () => ({ authorUid: auth.currentUser.uid, authorName: clean(auth.currentUser.displayName || "Leitor", LIMITS.name) });
+  const FALLBACK_NAME = "Leitor";
+  // The account's own name, else the one from its sign-in provider (Google).
+  // The fallback is never saved, so a reader who skips the question is asked again.
+  const nameOf = (u) => {
+    const own = (u.displayName || "").trim();
+    if (own && own !== FALLBACK_NAME) return own;
+    const fromProvider = (u.providerData || []).map((p) => (p.displayName || "").trim()).find(Boolean);
+    return fromProvider || "";
+  };
+  let currentName = "";
+  const author = () => ({ authorUid: auth.currentUser.uid, authorName: clean(currentName || FALLBACK_NAME, LIMITS.name) });
 
   // Finish an email-link sign-in when the visitor comes back through the link.
   if (A.isSignInWithEmailLink(auth, location.href)) {
@@ -610,17 +620,23 @@ async function firebaseBackend() {
     init(cb) {
       A.onAuthStateChanged(auth, async (u) => {
         if (!u) return cb(null, false);
-        if (!u.displayName) {
-          const name = clean((prompt(I.t("fNameAsk")) || "").trim(), LIMITS.name) || "Leitor";
-          await A.updateProfile(u, { displayName: name });
+        let name = nameOf(u);
+        if (!name) name = clean((prompt(I.t("fNameAsk")) || "").trim(), LIMITS.name);
+        if (name && name !== (u.displayName || "").trim()) {
+          try {
+            await A.updateProfile(u, { displayName: name });
+          } catch (e) {
+            console.error(e);
+          }
         }
+        currentName = name || FALLBACK_NAME;
         let admin = false;
         try {
           admin = (await F.getDoc(F.doc(db, "admins", u.uid))).exists();
         } catch (e) {
           admin = false;
         }
-        cb({ uid: u.uid, name: u.displayName }, admin);
+        cb({ uid: u.uid, name: currentName }, admin);
       });
     },
     signInGoogle() {
@@ -678,7 +694,12 @@ async function firebaseBackend() {
       await batch.commit();
     },
     async deletePost(threadId, postId) {
-      await F.deleteDoc(F.doc(db, "threads", threadId, "posts", postId));
+      // Delete the reply and take it off the topic's count in one step; the rules
+      // check that the post named in lastDeleted really goes away in this batch.
+      const batch = F.writeBatch(db);
+      batch.delete(F.doc(db, "threads", threadId, "posts", postId));
+      batch.update(F.doc(db, "threads", threadId), { replyCount: F.increment(-1), lastDeleted: postId });
+      await batch.commit();
     },
   };
 }

@@ -172,8 +172,8 @@
     fLoginEmail: { pt: "Receber link por e-mail", en: "Email me a sign-in link" },
     fEmailPlaceholder: { pt: "seu@email.com", en: "you@email.com" },
     fEmailSent: {
-      pt: "Enviamos um link para {email}. Abra-o neste aparelho para entrar.",
-      en: "We sent a link to {email}. Open it on this device to sign in.",
+      pt: "Enviamos um link para {email}. Abra-o neste aparelho para entrar. Se não chegar em alguns minutos, confira a caixa de spam ou lixo eletrônico.",
+      en: "We sent a link to {email}. Open it on this device to sign in. If it doesn't arrive within a few minutes, check your spam or junk folder.",
     },
     fEmailAsk: { pt: "Confirme o e-mail em que recebeu o link:", en: "Confirm the email that received the link:" },
     fEmailFail: { pt: "Não foi possível enviar o link. Confira o e-mail.", en: "Could not send the link. Please check the email." },

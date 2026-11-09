@@ -44,10 +44,19 @@ service cloud.firestore {
         && request.resource.data.replyCount == 0;
 
       // A reply bumps the counter by exactly one and refreshes lastActivity.
-      allow update: if isAdmin() || (signedIn()
-        && request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replyCount', 'lastActivity'])
-        && request.resource.data.replyCount == resource.data.replyCount + 1
-        && request.resource.data.lastActivity == request.time);
+      // Deleting your own reply takes exactly one off, naming the reply in
+      // lastDeleted; that reply must exist now and be gone after the same batch.
+      allow update: if isAdmin() || (signedIn() && (
+        (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replyCount', 'lastActivity'])
+          && request.resource.data.replyCount == resource.data.replyCount + 1
+          && request.resource.data.lastActivity == request.time)
+        || (request.resource.data.diff(resource.data).affectedKeys().hasOnly(['replyCount', 'lastDeleted'])
+          && request.resource.data.replyCount == resource.data.replyCount - 1
+          && request.resource.data.lastDeleted is string
+          && exists(/databases/$(database)/documents/threads/$(threadId)/posts/$(request.resource.data.lastDeleted))
+          && get(/databases/$(database)/documents/threads/$(threadId)/posts/$(request.resource.data.lastDeleted)).data.authorUid == request.auth.uid
+          && !existsAfter(/databases/$(database)/documents/threads/$(threadId)/posts/$(request.resource.data.lastDeleted)))
+      ));
 
       allow delete: if isAdmin()
         || (signedIn() && resource.data.authorUid == request.auth.uid && resource.data.replyCount == 0);
